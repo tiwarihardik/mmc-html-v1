@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SMDX - Smart Mobility Data Exchange</title>
+    <meta
+      name="description"
+      content="SMDX by Mega Mind Co. (MMC) is revolutionizing the transportation ecosystem with a powerful data-driven platform"
+    />
+    <meta property="og:title" content="SMDX - Smart Mobility Data Exchange" />
+    <meta
+      property="og:description"
+      content="SMDX by Mega Mind Co. (MMC) is revolutionizing the transportation ecosystem with a powerful data-driven platform"
+    />
+    <meta
+      property="og:image"
+      content="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/0d32c854-7de7-4d22-87b5-e47efeaa12d3/d3685d39-5a4f-4a91-9fb4-7a1c268cd79d?org_if_sml=1&amp;force_format=original"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;  -webkit-font-smoothing: antialiased;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;  color: inherit;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}details {  display: block;  margin: 0;  padding: 0;}summary::-webkit-details-marker {  display: none;}[data-thq="accordion"] [data-thq="accordion-content"] {  max-height: 0;  overflow: hidden;  transition: max-height 0.3s ease-in-out;  padding: 0;}[data-thq="accordion"] details[data-thq="accordion-trigger"][open] + [data-thq="accordion-content"] {  max-height: 300vh;}details[data-thq="accordion-trigger"][open] summary [data-thq="accordion-icon"] {  transform: rotate(180deg);}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background: var(--dl-color-gray-white);
+
+        fill: var(--dl-color-gray-black);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="public/full text logo2.png"
+      type="icon/png"
+      sizes="32x32"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Major+Mono+Display:wght@400&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+    <style>
+       body::-webkit-scrollbar {
+         width: 0.5em;
+         z-index: 100;
+         background-color:transparent;
+       }
+
+
+      body::-webkit-scrollbar-thumb {
+         background-color:white;
+         box-shadow:0 -100vh 0 100vh #5128f5;//magic
+       }
+    </style>
+  </head>
+  <body>
+    <link rel="stylesheet" href="./style.css" />
+    <div>
+      <link href="./smdx.css" rel="stylesheet" />
+
+      <div class="smdx-container1">
+        <header class="smdx-header">
+          <div id="mobile-menu" class="smdx-mobile-navigation">
+            <img
+              alt="pastedImage"
+              src="public/pastedimage-no9b-1500h.png"
+              class="smdx-logo1"
+            />
+            <div class="smdx-links1">
+              <span class="Link">Solutions</span>
+              <span class="Link">How it works</span>
+              <span class="Link">Prices</span>
+            </div>
+            <div id="close-mobile-menu" class="smdx-close-mobile-menu">
+              <svg viewBox="0 0 804.5714285714286 1024" class="smdx-icon1">
+                <path
+                  d="M741.714 755.429c0 14.286-5.714 28.571-16 38.857l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-168-168-168 168c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-77.714-77.714c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l168-168-168-168c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l77.714-77.714c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l168 168 168-168c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l77.714 77.714c10.286 10.286 16 24.571 16 38.857s-5.714 28.571-16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="smdx-desktop-navigation">
+            <nav class="smdx-centered">
+              <div class="smdx-left">
+                <a href="index.html" class="smdx-navlink">
+                  <img
+                    alt="pastedImage"
+                    src="public/mmc/full%20text%20logo-1500w.png"
+                    class="smdx-logo2"
+                  />
+                </a>
+                <div class="smdx-links2">
+                  <span class="smdx-text103 Link">SMDX</span>
+                  <span class="smdx-text104 Link">General</span>
+                  <a href="#Stats5" class="smdx-link1 Link">For investors</a>
+                  <a href="#Stats5" class="smdx-link2 Link">Maps</a>
+                  <a href="#Pitch 1" class="smdx-link3 Link">Info</a>
+                  <a href="#Timeline7" class="smdx-link4 Link">Timeline</a>
+                </div>
+              </div>
+              <div class="smdx-right">
+                <a
+                  href="https://meandering-morning-9085.tines.com/pages/b46f5a2fdfc574b13dbb7f968451c49d/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="smdx-link5"
+                >
+                  <div class="smdx-get-started">
+                    <span class="smdx-text105">Apply Now</span>
+                  </div>
+                </a>
+                <div id="open-mobile-menu" class="smdx-burger-menu">
+                  <img
+                    alt="pastedImage"
+                    src="public/pastedimage-yxbd.svg"
+                    class="smdx-mobile-menu-button"
+                  />
+                </div>
+              </div>
+            </nav>
+          </div>
+          <a
+            href="https://meandering-morning-9085.tines.com/pages/b46f5a2fdfc574b13dbb7f968451c49d/"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="smdx-link6"
+          >
+            <toast2-wrapper
+              class="smdx-component1"
+              rootclassname="toast2undefined"
+            >
+              <!--Toast2 component-->
+              <div class="toast2-container toast2root-class-name">
+                <img
+                  alt="Mega Mind Co. Logo"
+                  src="public/mmc/full%20text%20logo-1500w.png"
+                  class="toast2-logo"
+                />
+                <div class="toast2-header">
+                  <div class="toast2-content">
+                    <h3 class="thq-heading-3">
+                      <fragment class="smdx-fragment11">
+                        <span class="smdx-text107">Apply Now</span>
+                      </fragment>
+                    </h3>
+                    <span class="thq-body-large">
+                      <fragment class="smdx-fragment12">
+                        <span class="smdx-text108">
+                          Applications open for SMDX, interested candidates may
+                          apply soon. Application closes anytime before 24th of
+                          Jan 2025
+                        </span>
+                      </fragment>
+                    </span>
+                  </div>
+                  <button type="button" class="toast2-button thq-button-filled">
+                    <span>
+                      <fragment class="smdx-fragment10">
+                        <span class="smdx-text106">Apply&nbsp;</span>
+                      </fragment>
+                    </span>
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  aria-label="Close"
+                  class="toast2-close-button"
+                >
+                  <svg
+                    viewBox="0 0 804.5714285714286 1024"
+                    class="toast2-icon1"
+                  >
+                    <path
+                      d="M741.714 755.429c0 14.286-5.714 28.571-16 38.857l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-168-168-168 168c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-77.714-77.714c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l168-168-168-168c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l77.714-77.714c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l168 168 168-168c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l77.714 77.714c10.286 10.286 16 24.571 16 38.857s-5.714 28.571-16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </toast2-wrapper>
+          </a>
+          <div>
+            <div class="smdx-container3">
+              <script defer="">
+                /*
+                Mobile menu - Code Embed
+                */
+
+                // Mobile menu
+                const mobileMenu = document.querySelector('#mobile-menu')
+
+                // Buttons
+                const closeButton = document.querySelector('#close-mobile-menu')
+                const openButton = document.querySelector('#open-mobile-menu')
+
+                // On openButton click, set the mobileMenu position left to -100vw
+                openButton.addEventListener('click', function() {
+                    mobileMenu.style.transform = 'translateX(0%)'
+                })
+
+                // On closeButton click, set the mobileMenu position to 0vw
+                closeButton.addEventListener('click', function() {
+                    mobileMenu.style.transform = 'translateX(100%)'
+                })
+              </script>
+            </div>
+          </div>
+        </header>
+        <span class="smdx-text109">
+          Imagine a world where cities are smarter, commutes are seamless, and
+          transportation is sustainable—all powered by a platform that brings
+          together real-time data, advanced analytics, and intelligent
+          decision-making. This is SMDX: Smart Mobility Data Exchange, our
+          vision for the future of urban mobility.
+        </span>
+        <blog-post-header9-wrapper
+          class="blog-post-header9-wrapper"
+          rootclassname="blog-post-header9undefined"
+        >
+          <!--BlogPostHeader9 component-->
+          <div
+            class="blog-post-header9-blog-post-header3 thq-section-padding blog-post-header9root-class-name"
+          >
+            <div class="blog-post-header9-max-width thq-section-max-width">
+              <span class="blog-post-header9-date thq-body-small">
+                <fragment class="smdx-fragment13">
+                  <span class="smdx-text110">Last Updated January 2, 2025</span>
+                </fragment>
+              </span>
+              <div class="thq-card thq-flex-column">
+                <h1 class="blog-post-header9-text1 thq-heading-1">
+                  <fragment class="smdx-fragment15">
+                    <span class="smdx-text115">
+                      Smart Mobility Data Exchange
+                    </span>
+                  </fragment>
+                </h1>
+                <div
+                  class="blog-post-header9-divider thq-divider-horizontal"
+                ></div>
+                <span class="blog-post-header9-text2 thq-body-small">
+                  <fragment class="smdx-fragment14">
+                    <span class="smdx-text111">
+                      <span class="smdx-text112">
+                        Smart Mobility Data Exchange (SMDX) by&nbsp;
+                      </span>
+                      <span>
+                        Mega Mind Co. (MMC) is an innovative platform designed
+                        to revolutionize the transportation ecosystem by
+                        enabling seamless, efficient, and intelligent exchange
+                        of mobility data. It provides a unified framework for
+                        integrating and sharing data across various stakeholders
+                        in the mobility and transportation sectors, fostering
+                        collaboration, innovation, and sustainability.
+                      </span>
+                      <span class="smdx-text114">&nbsp;</span>
+                    </span>
+                  </fragment>
+                </span>
+                <div class="blog-post-header9-content2">
+                  <div class="blog-post-header9-author"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </blog-post-header9-wrapper>
+        <span id="general" class="smdx-text116">
+          <br class="smdx-text117" />
+          <span class="smdx-text118">What is SMDX?</span>
+          <br class="smdx-text119" />
+          <span>
+            SMDX (Smart Mobility Data Exchange) is a cutting-edge platform that
+            bridges the gap between static data systems and real-time actionable
+            intelligence. By integrating advanced AI, machine learning, and
+            secure data protocols, SMDX transforms mobility data into powerful
+            insights, fostering innovation and efficiency across transportation
+            networks.
+          </span>
+          <br class="smdx-text121" />
+          <br class="smdx-text122" />
+          <span class="smdx-text123">Key Features of SMDX</span>
+          <br class="smdx-text124" />
+          <span class="smdx-text125">1. Data Interoperability</span>
+          <br class="smdx-text126" />
+          <span class="smdx-text127">Seamless Integration:</span>
+          <span>Supports multiple data formats and standards.</span>
+          <br class="smdx-text129" />
+          <span class="smdx-text130">Unified Communication</span>
+          <span>: Connects public and private mobility providers.</span>
+          <br class="smdx-text132" />
+          <span class="smdx-text133">2. Real-Time Data Exchange</span>
+          <br class="smdx-text134" />
+          <span class="smdx-text135">Live Updates:</span>
+          <span>
+            Instant insights into traffic patterns, vehicle availability, and
+            infrastructure usage.
+          </span>
+          <br class="smdx-text137" />
+          <span class="smdx-text138">Adaptive Decision-Making:</span>
+          <span>
+            Supports dynamic environments with real-time responsiveness.
+          </span>
+          <br class="smdx-text140" />
+          <br class="smdx-text141" />
+          <span class="smdx-text142">3. Enhanced Security and Privacy</span>
+          <br class="smdx-text143" />
+          <span class="smdx-text144">Top-Tier Encryption</span>
+          <span>: Protects sensitive mobility data from breaches.</span>
+          <br class="smdx-text146" />
+          <span class="smdx-text147">Compliance Ready:</span>
+          <span>
+            Adheres to global standards like GDPR for secure operations.
+          </span>
+          <br class="smdx-text149" />
+          <br class="smdx-text150" />
+          <span class="smdx-text151">4. AI and ML Integration</span>
+          <br class="smdx-text152" />
+          <span class="smdx-text153">Predictive Analytics:</span>
+          <span>Smarter traffic management and demand forecasting.</span>
+          <br class="smdx-text155" />
+          <span class="smdx-text156">Intelligent Optimization:</span>
+          <span>Drives impactful, data-backed decisions.</span>
+          <br class="smdx-text158" />
+          <br class="smdx-text159" />
+          <span class="smdx-text160">5. Scalability and Modularity</span>
+          <br class="smdx-text161" />
+          <span class="smdx-text162">Future-Ready:</span>
+          <span>Grows with urban and regional mobility networks.</span>
+          <br class="smdx-text164" />
+          <span class="smdx-text165">Customizable:</span>
+          <span>Modular design allows easy feature additions.</span>
+          <br class="smdx-text167" />
+          <br class="smdx-text168" />
+          <span class="smdx-text169">Use Cases of SMDX</span>
+          <br class="smdx-text170" />
+          <span class="smdx-text171">Smart City Mobility:&nbsp;</span>
+          <span>
+            Centralized platform for managing public transport, ride-sharing,
+            and micro-mobility.
+          </span>
+          <br class="smdx-text173" />
+          <span class="smdx-text174">Traffic Optimization:&nbsp;</span>
+          <span>
+            Reduces congestion with real-time traffic insights and dynamic
+            adjustments.
+          </span>
+          <br class="smdx-text176" />
+          <span class="smdx-text177">Sustainable Transport:&nbsp;</span>
+          <span>
+            Promotes eco-friendly initiatives like EV network management and
+            shared mobility planning.
+          </span>
+          <br class="smdx-text179" />
+          <span class="smdx-text180">Policy Design and Research:&nbsp;</span>
+          <span>
+            Equips governments and organizations with rich data for mobility
+            policies.
+          </span>
+          <br class="smdx-text182" />
+          <br class="smdx-text183" />
+          <span class="smdx-text184">Why Choose SMDX?</span>
+          <br class="smdx-text185" />
+          <br class="smdx-text186" />
+          <span class="smdx-text187">Real-Time Capabilities:&nbsp;</span>
+          <span>
+            Unlike traditional platforms, SMDX provides real-time data
+            aggregation and actionable insights, enabling stakeholders to make
+            informed decisions instantly. This is crucial for applications such
+            as:
+          </span>
+          <br class="smdx-text189" />
+          <span class="smdx-text190">Emergency Response:</span>
+          <span>Faster healthcare and disaster management.</span>
+          <br class="smdx-text192" />
+          <span class="smdx-text193">Traffic Decongestion:</span>
+          <span>Reduces commute times and enhances urban mobility.</span>
+          <br class="smdx-text195" />
+          <span class="smdx-text196">Environmental Sustainability:</span>
+          <span>Supports carbon footprint reduction with smart solutions.</span>
+          <br class="smdx-text198" />
+          <br class="smdx-text199" />
+          <span class="smdx-text200">Innovative Features</span>
+          <br class="smdx-text201" />
+          <span class="smdx-text202">Traffic Observation Probes:</span>
+          <span>
+            Low-cost devices monitor live traffic flow for better logistics.
+          </span>
+          <br class="smdx-text204" />
+          <span class="smdx-text205">Comprehensive Data Aggregation:</span>
+          <span>Covers inter- and multi-modal transport data.</span>
+          <br class="smdx-text207" />
+          <span class="smdx-text208">Industry Collaborations:</span>
+          <span>
+            Partnerships with leading companies like Ola for fleet optimization.
+          </span>
+          <br class="smdx-text210" />
+          <span class="smdx-text211">Automated Data Centers:</span>
+          <span>
+            Tailored city-level solutions for seamless data management.
+          </span>
+          <br class="smdx-text213" />
+          <span class="smdx-text214">End-to-End Ecosystem Support:</span>
+          <span>
+            From traffic management to road safety, we redefine urban mobility.
+          </span>
+          <br class="smdx-text216" />
+          <br class="smdx-text217" />
+          <span class="smdx-text218">Join the Mobility Revolution</span>
+          <br class="smdx-text219" />
+          <span>
+            At SMDX, we believe in empowering mobility through data-driven
+            solutions. Our platform stands out with its unique ability to
+            transform raw data into actionable insights, driving innovation and
+            efficiency in urban transportation.
+          </span>
+          <br class="smdx-text221" />
+          <span class="smdx-text222">
+            Let’s build a smarter, greener, and more connected world – together.
+          </span>
+          <br class="smdx-text223" />
+          <br class="smdx-text224" />
+          <span class="smdx-text225">Contact Us Today</span>
+          <br class="smdx-text226" />
+          <span>
+            Ready to revolutionize your city’s mobility ecosystem? Get in touch
+            with SMDX by Mega Mind Co.
+          </span>
+          <br class="smdx-text228" />
+          <br class="smdx-text229" />
+          <span class="smdx-text230">Email:</span>
+          <span>i@hardiktiwari.com</span>
+          <br class="smdx-text232" />
+          <span class="smdx-text233">Mobile:</span>
+          <span>+919041310197</span>
+          <br />
+        </span>
+        <stats5-wrapper class="stats5-wrapper">
+          <!--Stats5 component-->
+          <div id="Stats5" class="stats5-container1 thq-section-padding">
+            <div class="stats5-max-width thq-section-max-width">
+              <div class="stats5-container2"></div>
+            </div>
+            <div class="stats5-container3">
+              <div class="stats5-container4">
+                <style>
+                   #in {
+                       font-family: Arial, sans-serif;
+                       line-height: 1.6;
+                       margin: 0;
+                       padding: 0;
+                       background-color: #f4f4f4;
+                       color: #333;
+                   }
+                   #in header {
+                       background: #007BFF;
+                       color: white;
+                       padding: 1rem 0;
+                       text-align: center;
+                   }
+                   #in header h1 {
+                       margin: 0;
+                       font-size: 2.5rem;
+                   }
+                   #in header p {
+                       margin: 0.5rem 0 0;
+                       font-size: 1.2rem;
+                   }
+                   #in section {
+                       padding: 1.5rem;
+                       margin: 1rem auto;
+                       max-width: 800px;
+                       background: white;
+                       border-radius: 5px;
+                       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                   }
+                   #in h2 {
+                       color: #007BFF;
+                       font-size: 1.8rem;
+                   }
+                  #in ul {
+                       list-style: disc;
+                       margin: 1rem 0;
+                       padding-left: 1.5rem;
+                   }
+                  #in li {
+                       margin: 0.5rem 0;
+                   }
+                   #in footer {
+                       background: #333;
+                       color: #fff;
+                       text-align: center;
+                       padding: 1rem 0;
+                       margin-top: 1rem;
+                   }
+                </style>
+                <div id="in">
+                  <header>
+                    <h3><em>Investor's Quick Peak</em></h3>
+                    <h1>SMDX by Mega Mind Co.</h1>
+                    <p>Revolutionizing Urban Mobility with Real-Time Data</p>
+                  </header>
+
+                  <section>
+                    <h2>The Problem</h2>
+                    <p>
+                      Today's mobility data systems are fragmented, static, and
+                      often outdated, leading to:
+                    </p>
+                    <ul>
+                      <li>Inefficient traffic management.</li>
+                      <li>
+                        Suboptimal public transport and ride-sharing
+                        experiences.
+                      </li>
+                      <li>
+                        Missed opportunities for sustainability and policy
+                        innovation.
+                      </li>
+                    </ul>
+                    Existing platforms like IUDX (Data Kaveri) and API Setu have
+                    made strides but fall short in delivering real-time insights
+                    and actionable intelligence.
+                    <p></p>
+                  </section>
+
+                  <section>
+                    <h2>Our Solution: SMDX</h2>
+                    <p>
+                      SMDX bridges the gap with a platform designed for
+                      real-time data aggregation, analysis, and actionable
+                      insights. By integrating AI, machine learning, and secure
+                      protocols, it empowers cities and businesses to make
+                      smarter decisions.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h2>Key Features</h2>
+                    <p></p>
+                    <ul>
+                      <li>
+                        <strong>Data Interoperability:</strong>
+                        Supports diverse formats and connects public and private
+                        providers.
+                      </li>
+                      <li>
+                        <strong>Real-Time Data Exchange:</strong>
+                        Provides live updates and dynamic decision-making.
+                      </li>
+                      <li>
+                        <strong>AI and ML Integration:</strong>
+                        Predictive analytics for traffic and demand forecasting.
+                      </li>
+                      <li>
+                        <strong>Enhanced Security and Privacy:</strong>
+                        End-to-end encryption and GDPR compliance.
+                      </li>
+                      <li>
+                        <strong>Scalability and Modularity:</strong>
+                        Grows with urban needs and allows modular expansions.
+                      </li>
+                    </ul>
+                    <p></p>
+                  </section>
+
+                  <section>
+                    <h2>Real-World Applications</h2>
+                    <p></p>
+                    <ul>
+                      <li>
+                        <strong>Urban Mobility Transformation:</strong>
+                        Manage public transport, ride-sharing, and
+                        micro-mobility on one platform.
+                      </li>
+                      <li>
+                        <strong>Traffic Optimization:</strong>
+                        Reduce congestion with dynamic insights.
+                      </li>
+                      <li>
+                        <strong>Sustainability Initiatives:</strong>
+                        Support EV networks and reduce carbon footprints.
+                      </li>
+                      <li>
+                        <strong>Policy Innovation:</strong>
+                        Enable governments to create impactful mobility
+                        policies.
+                      </li>
+                    </ul>
+                    <p></p>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </stats5-wrapper>
+        <banner1-wrapper class="banner1-wrapper">
+          <!--Banner1 component-->
+          <div class="banner1-container1 thq-section-padding">
+            <div class="banner1-max-width thq-section-max-width">
+              <div class="banner1-container2">
+                <h2 class="banner1-title thq-heading-2">
+                  <fragment class="smdx-fragment16">
+                    <span class="smdx-text236">Illustrations and Maps</span>
+                  </fragment>
+                </h2>
+              </div>
+            </div>
+            <img
+              alt="image"
+              src="public/mmc/smdx%20overview-700h.png"
+              class="banner1-image1"
+            />
+            <img
+              alt="image"
+              src="public/mmc/smart%20mobility%20data%20exchange%20platform%20(smdx)%20impact-500h.png"
+              class="banner1-image2"
+            />
+            <img
+              alt="image"
+              src="public/mmc/smdx%20impact_%20stakeholders%2C%20sdgs%2C%20and%20benefits-500h.png"
+              class="banner1-image3"
+            />
+          </div>
+        </banner1-wrapper>
+        <pitch1-wrapper class="pitch1-wrapper" rootclassname="pitch1undefined">
+          <!--Pitch1 component-->
+          <div id="Pitch 1" class="pitch1-container pitch1root-class-name">
+            <img
+              alt="image"
+              src="public/mmc/2-1500w.png"
+              class="pitch1-image1"
+            />
+            <img
+              alt="image"
+              src="public/mmc/4-1500w.png"
+              class="pitch1-image2"
+            />
+            <img
+              alt="image"
+              src="public/mmc/5-1500w.png"
+              class="pitch1-image3"
+            />
+          </div>
+        </pitch1-wrapper>
+        <timeline7-wrapper class="timeline7-wrapper">
+          <!--Timeline7 component-->
+          <div id="Timeline7" class="timeline7-container10 thq-section-padding">
+            <div class="timeline7-max-width thq-section-max-width">
+              <div class="timeline7-container11">
+                <h2 class="timeline7-text10 thq-heading-2">
+                  <fragment class="smdx-fragment19">
+                    <span class="smdx-text239">Project Timeline</span>
+                  </fragment>
+                </h2>
+                <div class="timeline7-container12"></div>
+              </div>
+              <div class="timeline7-timeline-container">
+                <div class="timeline7-step1">
+                  <div class="timeline7-container13">
+                    <div class="timeline7-container14"></div>
+                    <div class="timeline7-progress01"></div>
+                  </div>
+                  <div class="timeline7-container15">
+                    <h3 class="thq-heading-3">
+                      <fragment class="smdx-fragment17">
+                        <span class="smdx-text237">Step 1</span>
+                      </fragment>
+                    </h3>
+                    <h3 class="timeline7-text12 thq-heading-3">
+                      <fragment class="smdx-fragment20">
+                        <span class="smdx-text240">
+                          Presented Project at IITD Transport Stack Open
+                          Innovation Challange
+                        </span>
+                      </fragment>
+                    </h3>
+                  </div>
+                </div>
+                <div class="timeline7-step2">
+                  <div class="timeline7-container16">
+                    <div class="timeline7-container17"></div>
+                    <div class="timeline7-progress02"></div>
+                  </div>
+                  <div class="timeline7-container18">
+                    <h3 class="thq-heading-3">
+                      <fragment class="smdx-fragment18">
+                        <span class="smdx-text238">Step 2</span>
+                      </fragment>
+                    </h3>
+                    <h3 class="timeline7-text14 thq-heading-3">
+                      <fragment class="smdx-fragment23">
+                        <span class="smdx-text243">
+                          MVP Progress 1 - ANPR for traffic tracking&nbsp;
+                        </span>
+                      </fragment>
+                    </h3>
+                    <span class="thq-body-small">
+                      <fragment class="smdx-fragment22">
+                        <span class="smdx-text242">
+                          Developing a basic ANPR and Vehicle Recognition system
+                          for realtime traffic tracking using YOLO and Open CV
+                        </span>
+                      </fragment>
+                    </span>
+                    <div class="timeline7-container19">
+                      <button type="button" class="thq-button-filled">
+                        <a
+                          href="https://github.com/megamindco/mvp-anpr-system"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          class="timeline7-link"
+                        >
+                          <fragment class="smdx-fragment21">
+                            <span class="smdx-text241">Visit</span>
+                          </fragment>
+                        </a>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="timeline7-step3">
+                  <div class="timeline7-container20">
+                    <div class="timeline7-container21"></div>
+                    <div class="timeline7-progress03"></div>
+                  </div>
+                </div>
+                <div class="timeline7-step4">
+                  <div class="timeline7-container22">
+                    <div class="timeline7-container23"></div>
+                    <div class="timeline7-progress04"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </timeline7-wrapper>
+        <footer-wrapper class="footer-wrapper" rootclassname="footerundefined">
+          <!--Footer component-->
+          <footer class="footer-footer footerroot-class-name">
+            <div class="footer-top">
+              <div class="footer-left">
+                <span class="footer-text10">
+                  <fragment class="smdx-fragment25">
+                    <span class="smdx-text245">
+                      Subscribe to our newsletter
+                    </span>
+                  </fragment>
+                </span>
+                <div class="footer-subscription">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    class="footer-textinput input"
+                  />
+                  <div class="footer-subscribe">
+                    <span class="footer-text11">
+                      <fragment class="smdx-fragment29">
+                        <span class="smdx-text252">Subscribe</span>
+                      </fragment>
+                    </span>
+                  </div>
+                </div>
+                <span class="footer-text12">
+                  <fragment class="smdx-fragment26">
+                    <span class="smdx-text246">
+                      By subscribing to our newsletter you agree with our Terms
+                      and Conditions.
+                    </span>
+                  </fragment>
+                </span>
+                <div class="footer-contact">
+                  <span class="footer-text13">
+                    <fragment class="smdx-fragment27">
+                      <span class="smdx-text247">Contact</span>
+                    </fragment>
+                  </span>
+                  <a
+                    href="mailto:use@active-app.com?subject=Support"
+                    class="footer-link1"
+                  >
+                    <fragment class="smdx-fragment28"></fragment>
+                  </a>
+                  <a
+                    href="mailto:use@active-app.com?subject=Support"
+                    class="smdx-link7"
+                  >
+                    <span class="smdx-text248">i@hardiktiwari.com</span>
+                    <br />
+                    <span>+91 9041310197</span>
+                    <br />
+                  </a>
+                </div>
+              </div>
+              <div class="footer-right"></div>
+            </div>
+            <div class="footer-bottom">
+              <img
+                alt="pastedImage"
+                src="public/mmc/full%20text%20logo-200h.png"
+                class="footer-branding"
+              />
+              <span class="footer-text14">
+                <fragment class="smdx-fragment24">
+                  <span class="smdx-text244">
+                    Copyright © Mega Mind Co. - 2025
+                  </span>
+                </fragment>
+              </span>
+            </div>
+          </footer>
+        </footer-wrapper>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://www.googletagmanager.com/gtag/js?id=G-Q80JWXM7J6"
+      async=""
+    ></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-Q80JWXM7J6');
+    </script>
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-Q80JWXM7J6"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q80JWXM7J6');
+    </script>
+  </body>
+</html>
