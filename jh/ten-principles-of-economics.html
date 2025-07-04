@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Ten Principles of Economics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+        }
+        .details-content.show {
+            max-height: 1000px;
+        }
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-bold text-teal-700">Ten Principles of Economics</span>
+                  <h6>by <strong><a href="jagritidodeja.com">Jagriti Dodeja</a> and <a href="hardiktiwari.com">Hardik Tiwari</a></strong></h6>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#decision-making" class="text-stone-600 hover:text-teal-700 font-medium">Decision Making</a>
+                    <a href="#interaction" class="text-stone-600 hover:text-teal-700 font-medium">Interaction</a>
+                    <a href="#economy-as-a-whole" class="text-stone-600 hover:text-teal-700 font-medium">The Whole Economy</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <section class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-stone-900 mb-4">An Interactive Guide</h1>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600">Economics is the study of how society manages its scarce resources. These ten principles are the foundation of economic thinking. Explore them through interactive examples to see how they apply in the real world.</p>
+        </section>
+
+        <!-- Section 1: How People Make Decisions -->
+        <section id="decision-making" class="mb-16">
+            <h2 class="text-3xl font-bold text-stone-900 mb-2">Part 1: How People Make Decisions</h2>
+            <p class="text-lg text-stone-600 mb-8">These first four principles cover the fundamentals of individual choice and decision making.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: Trade-offs -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">1. People Face Trade-offs</h3>
+                    <p class="text-stone-600 mb-4">To get one thing, we usually have to give up something else. This includes the major societal trade-off between efficiency (size of the economic pie) and equality (how the pie is divided).</p>
+                    <button onclick="toggleDetails('details1')" class="font-medium text-teal-600 hover:text-teal-800">Explore the Trade-off &rarr;</button>
+                    <div id="details1" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">When government policies are designed, the goals of efficiency and equality often conflict. Policies aimed at equalizing distribution, like welfare, can reduce the reward for working hard, leading to a smaller economic pie. This visualization shows how focusing on one goal can impact the other.</p>
+                        <div class="chart-container">
+                            <canvas id="efficiencyEqualityChart"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            <label for="policySlider" class="block text-sm font-medium text-stone-700">Policy Focus: <span id="sliderValue">Balanced</span></label>
+                            <input type="range" id="policySlider" min="0" max="100" value="50" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs text-stone-500">
+                                <span>More Equality</span>
+                                <span>More Efficiency</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Opportunity Cost -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">2. The Cost of Something Is What You Give Up to Get It</h3>
+                    <p class="text-stone-600 mb-4">The true cost of an item is its opportunity cost: what you give up to get it. This often includes more than just money.</p>
+                    <button onclick="toggleDetails('details2')" class="font-medium text-teal-600 hover:text-teal-800">Calculate an Example &rarr;</button>
+                    <div id="details2" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">The largest opportunity cost of attending college is often the wages given up by not working. Use this calculator to see the true cost of a year of college.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="tuition" class="block text-sm font-medium text-stone-700">Annual Tuition & Fees ($)</label>
+                                <input type="number" id="tuition" value="20000" class="mt-1 block w-full p-2 border border-stone-300 rounded-md">
+                            </div>
+                            <div>
+                                <label for="wages" class="block text-sm font-medium text-stone-700">Forgone Annual Wages ($)</label>
+                                <input type="number" id="wages" value="45000" class="mt-1 block w-full p-2 border border-stone-300 rounded-md">
+                            </div>
+                            <button onclick="calculateOpportunityCost()" class="w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-700">Calculate</button>
+                            <div id="costResult" class="text-center font-bold text-xl text-stone-800 mt-4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Rational People Think at the Margin -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">3. Rational People Think at the Margin</h3>
+                    <p class="text-stone-600 mb-4">Rational people make decisions by comparing the marginal costs and marginal benefits of small, incremental changes to a plan.</p>
+                    <button onclick="toggleDetails('details3')" class="font-medium text-teal-600 hover:text-teal-800">See a Marginal Decision &rarr;</button>
+                    <div id="details3" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">An airline is deciding whether to sell a last-minute ticket. The average cost per seat is high, but the marginal cost is low. What should it do?</p>
+                        <div class="bg-stone-100 p-4 rounded-lg text-center">
+                            <p>A 200-seat plane costs $100,000 to fly.</p>
+                            <p><strong>Average Cost per Seat:</strong> $500</p>
+                            <p>A standby passenger offers <strong>$300</strong> for an empty seat.</p>
+                            <p><strong>Marginal Cost</strong> (cost of one more passenger): ~ $5 (for a soda)</p>
+                            <button onclick="revealMarginDecision()" class="mt-4 bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700">Make the Decision</button>
+                            <div id="marginResult" class="mt-4 font-bold text-xl hidden">
+                                <span class="text-green-600">YES! Sell the ticket.</span>
+                                <p class="text-sm font-normal text-stone-600">The marginal benefit ($300) is greater than the marginal cost (~$5).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: People Respond to Incentives -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">4. People Respond to Incentives</h3>
+                    <p class="text-stone-600 mb-4">An incentive is something that induces a person to act. Changes in costs or benefits lead to predictable changes in behavior.</p>
+                    <button onclick="toggleDetails('details4')" class="font-medium text-teal-600 hover:text-teal-800">Analyze an Incentive &rarr;</button>
+                    <div id="details4" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">Seat belt laws provide a fascinating example of incentives. While they make drivers safer in an accident (the direct effect), they also reduce the "cost" of driving recklessly (the indirect effect). See how this alters behavior.</p>
+                        <div class="flex justify-center space-x-4 my-4">
+                            <button id="btnBefore" onclick="showIncentive('before')" class="bg-teal-600 text-white py-2 px-4 rounded-md">Before Law</button>
+                            <button id="btnAfter" onclick="showIncentive('after')" class="bg-stone-200 text-stone-800 py-2 px-4 rounded-md">After Law</button>
+                        </div>
+                        <div id="incentiveDisplay" class="text-center p-4 bg-stone-100 rounded-lg">
+                            <p class="text-lg font-medium">Driver Speed & Care:</p>
+                            <div id="incentiveCare" class="text-3xl font-bold text-green-600 my-2">Careful</div>
+                            <p class="text-lg font-medium">Accident Risk to Pedestrians:</p>
+                            <div id="incentiveRisk" class="text-3xl font-bold text-green-600 my-2">Lower</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: How People Interact -->
+        <section id="interaction" class="mb-16">
+            <h2 class="text-3xl font-bold text-stone-900 mb-2">Part 2: How People Interact</h2>
+            <p class="text-lg text-stone-600 mb-8">The next three principles concern how people interact with one another in the economy.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 5: Trade Can Make Everyone Better Off -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">5. Trade Can Make Everyone Better Off</h3>
+                    <p class="text-stone-600 mb-4">Trade allows countries to specialize in what they do best and to enjoy a greater variety of goods and services.</p>
+                    <button onclick="toggleDetails('details5')" class="font-medium text-teal-600 hover:text-teal-800">Visualize Specialization &rarr;</button>
+                     <div id="details5" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">Instead of being self-sufficient, individuals and countries gain by trading with others. This allows for specialization, which increases total output.</p>
+                        <div class="text-center">
+                            <div id="trade-before" class="p-4 bg-stone-100 rounded-lg">
+                                <p class="font-bold">Before Trade (Isolation)</p>
+                                <p>Country A: 10 Food, 5 Clothing</p>
+                                <p>Country B: 5 Food, 10 Clothing</p>
+                                <p class="font-bold mt-2">Total: 15 Food, 15 Clothing</p>
+                            </div>
+                            <div id="trade-after" class="p-4 bg-green-100 rounded-lg mt-2 hidden">
+                                <p class="font-bold">After Trade (with Specialization)</p>
+                                <p>Country A (makes food): 25 Food, 0 Clothing</p>
+                                <p>Country B (makes clothes): 0 Food, 25 Clothing</p>
+                                <p class="font-bold mt-2 text-green-700">Total: 25 Food, 25 Clothing (Gains!)</p>
+                            </div>
+                            <button onclick="runTradeSim()" class="mt-4 bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700">Enable Trade</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Markets Are a Good Way to Organize Economic Activity -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">6. Markets Are Usually a Good Way to Organize Economic Activity</h3>
+                    <p class="text-stone-600 mb-4">Market economies, guided by an "invisible hand" of prices and self-interest, have proven remarkably successful at organizing economic activity.</p>
+                    <button onclick="toggleDetails('details6')" class="font-medium text-teal-600 hover:text-teal-800">See the Invisible Hand &rarr;</button>
+                     <div id="details6" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">Adam Smith's "invisible hand" describes how prices guide the decisions of individual households and firms to outcomes that, in many cases, maximize society's well-being without central planning.</p>
+                         <div class="text-center font-bold text-teal-700 p-4 bg-stone-100 rounded-lg">
+                            Prices are the instrument with which the invisible hand directs economic activity.
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Governments Can Sometimes Improve Market Outcomes -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">7. Governments Can Sometimes Improve Market Outcomes</h3>
+                    <p class="text-stone-600 mb-4">Governments can improve market outcomes by enforcing property rights and correcting market failures.</p>
+                    <button onclick="toggleDetails('details7')" class="font-medium text-teal-600 hover:text-teal-800">Explore Market Failures &rarr;</button>
+                     <div id="details7" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">The "invisible hand" is powerful, but not omnipotent. Government intervention is sometimes needed to promote efficiency or equality. A market failure occurs when the market on its own fails to produce an efficient allocation of resources.</p>
+                         <div class="bg-stone-100 p-4 rounded-lg">
+                            <p class="font-bold">Two main causes of market failure:</p>
+                            <ul class="list-disc list-inside mt-2 text-stone-700">
+                                <li><strong>Externality:</strong> The impact of one person's actions on a bystander (e.g., pollution).</li>
+                                <li><strong>Market Power:</strong> The ability of a single actor to unduly influence market prices (e.g., a monopoly).</li>
+                            </ul>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: How the Economy as a Whole Works -->
+        <section id="economy-as-a-whole" class="mb-16">
+            <h2 class="text-3xl font-bold text-stone-900 mb-2">Part 3: How the Economy as a Whole Works</h2>
+            <p class="text-lg text-stone-600 mb-8">The final three principles concern the workings of the entire economy.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 8: Standard of Living Depends on Productivity -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">8. A Country's Standard of Living Depends on Its Ability to Produce Goods and Services</h3>
+                    <p class="text-stone-600 mb-4">Almost all variation in living standards is attributable to differences in countries' productivity.</p>
+                    <button onclick="toggleDetails('details8')" class="font-medium text-teal-600 hover:text-teal-800">Chart the Relationship &rarr;</button>
+                     <div id="details8" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">Productivity is the amount of goods and services produced from each unit of labor input. Higher productivity leads to a higher standard of living.</p>
+                        <div class="chart-container">
+                            <canvas id="productivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Prices Rise When the Government Prints Too Much Money -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">9. Prices Rise When the Government Prints Too Much Money</h3>
+                    <p class="text-stone-600 mb-4">When a government creates large quantities of the nation's money, the value of the money falls, causing inflation.</p>
+                    <button onclick="toggleDetails('details9')" class="font-medium text-teal-600 hover:text-teal-800">Demonstrate Inflation &rarr;</button>
+                     <div id="details9" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">In almost all cases of large or persistent inflation, the culprit is growth in the quantity of money. Click the button to see the effect.</p>
+                        <div class="text-center p-4 bg-stone-100 rounded-lg">
+                            <p>Price of Bread: <span id="breadPrice" class="font-bold text-2xl">$2</span></p>
+                            <p>Value of $1: <span id="moneyValue" class="font-bold text-2xl">100%</span></p>
+                            <button onclick="runInflationSim()" class="mt-4 bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700">Print More Money</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: Society Faces a Short-Run Trade-off between Inflation and Unemployment -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-teal-800 mb-2">10. Society Faces a Short-Run Trade-off between Inflation and Unemployment</h3>
+                    <p class="text-stone-600 mb-4">In the short run, many economic policies push inflation and unemployment in opposite directions.</p>
+                    <button onclick="toggleDetails('details10')" class="font-medium text-teal-600 hover:text-teal-800">Explore the Phillips Curve &rarr;</button>
+                     <div id="details10" class="details-content mt-4">
+                        <p class="text-sm text-stone-600 mb-4">This trade-off is key to understanding the business cycle. Policymakers can influence the economy's position on this curve, but they face a difficult choice.</p>
+                        <div class="chart-container">
+                             <canvas id="phillipsCurveChart"></canvas>
+                        </div>
+                         <div class="mt-4 flex justify-center space-x-4">
+                            <button onclick="moveOnPhillipsCurve(-1)" class="bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700">&larr; Lower Inflation</button>
+                            <button onclick="moveOnPhillipsCurve(1)" class="bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700">Lower Unemployment &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        let charts = {};
+
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('show');
+
+            if (element.classList.contains('show')) {
+                // Lazy-load charts
+                if (id === 'details1' && !charts.efficiencyEquality) createEfficiencyEqualityChart();
+                if (id === 'details8' && !charts.productivity) createProductivityChart();
+                if (id === 'details10' && !charts.phillips) createPhillipsCurveChart();
+            }
+        }
+
+        // --- Principle 1 ---
+        function createEfficiencyEqualityChart() {
+            const ctx = document.getElementById('efficiencyEqualityChart').getContext('2d');
+            charts.efficiencyEquality = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Economic Pie (Efficiency)', 'Distribution (Equality)'],
+                    datasets: [{
+                        label: 'Outcome',
+                        data: [75, 75],
+                        backgroundColor: ['rgba(20, 184, 166, 0.6)', 'rgba(244, 114, 182, 0.6)'],
+                        borderColor: ['rgba(15, 118, 110, 1)', 'rgba(190, 24, 93, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 150 } },
+                    plugins: { legend: { display: false }, title: { display: true, text: 'Efficiency vs. Equality Trade-off' } }
+                }
+            });
+            document.getElementById('policySlider').addEventListener('input', updateEfficiencyEqualityChart);
+        }
+
+        function updateEfficiencyEqualityChart(event) {
+            const slider = event.target;
+            const efficiencyFocus = slider.value;
+            const equalityFocus = 100 - efficiencyFocus;
+            
+            const pieSize = 50 + (efficiencyFocus * 0.8);
+            const distribution = 50 + (equalityFocus * 0.8);
+            
+            charts.efficiencyEquality.data.datasets[0].data = [pieSize, distribution];
+            charts.efficiencyEquality.update();
+
+            const sliderValueEl = document.getElementById('sliderValue');
+            if(efficiencyFocus > 70) sliderValueEl.textContent = "High Efficiency Focus";
+            else if (efficiencyFocus < 30) sliderValueEl.textContent = "High Equality Focus";
+            else sliderValueEl.textContent = "Balanced";
+        }
+
+
+        // --- Principle 2 ---
+        function calculateOpportunityCost() {
+            const tuition = parseFloat(document.getElementById('tuition').value) || 0;
+            const wages = parseFloat(document.getElementById('wages').value) || 0;
+            const totalCost = tuition + wages;
+            const resultEl = document.getElementById('costResult');
+            resultEl.innerHTML = `
+                <p>Explicit Cost (Tuition): $${tuition.toLocaleString()}</p>
+                <p>Implicit Cost (Wages): $${wages.toLocaleString()}</p>
+                <hr class="my-2">
+                <p>Total Opportunity Cost: $${totalCost.toLocaleString()}</p>
+            `;
+        }
+
+        // --- Principle 3 ---
+        function revealMarginDecision() {
+            document.getElementById('marginResult').classList.remove('hidden');
+        }
+
+        // --- Principle 4 ---
+        function showIncentive(state) {
+            const careEl = document.getElementById('incentiveCare');
+            const riskEl = document.getElementById('incentiveRisk');
+            const btnBefore = document.getElementById('btnBefore');
+            const btnAfter = document.getElementById('btnAfter');
+            
+            if (state === 'before') {
+                careEl.textContent = 'Careful';
+                careEl.className = 'text-3xl font-bold text-green-600 my-2';
+                riskEl.textContent = 'Lower';
+                riskEl.className = 'text-3xl font-bold text-green-600 my-2';
+                btnBefore.className = 'bg-teal-600 text-white py-2 px-4 rounded-md';
+                btnAfter.className = 'bg-stone-200 text-stone-800 py-2 px-4 rounded-md';
+            } else {
+                careEl.textContent = 'Less Careful';
+                careEl.className = 'text-3xl font-bold text-red-600 my-2';
+                riskEl.textContent = 'Higher';
+                riskEl.className = 'text-3xl font-bold text-red-600 my-2';
+                btnBefore.className = 'bg-stone-200 text-stone-800 py-2 px-4 rounded-md';
+                btnAfter.className = 'bg-teal-600 text-white py-2 px-4 rounded-md';
+            }
+        }
+        
+        // --- Principle 5 ---
+        function runTradeSim() {
+            document.getElementById('trade-after').classList.remove('hidden');
+        }
+
+        // --- Principle 8 ---
+        function createProductivityChart() {
+            const ctx = document.getElementById('productivityChart').getContext('2d');
+            charts.productivity = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1950', '1970', '1990', '2010', '2030'],
+                    datasets: [
+                        {
+                            label: 'Productivity',
+                            data: [20, 40, 60, 80, 100],
+                            borderColor: 'rgba(20, 184, 166, 1)',
+                            backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                            fill: true,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Standard of Living',
+                            data: [15, 35, 58, 82, 105],
+                            borderColor: 'rgba(244, 114, 182, 1)',
+                             backgroundColor: 'rgba(244, 114, 182, 0.2)',
+                            fill: true,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: 'Productivity & Living Standards Over Time' } }
+                }
+            });
+        }
+        
+        // --- Principle 9 ---
+        let breadPrice = 2;
+        let moneyValue = 100;
+        function runInflationSim() {
+            breadPrice *= 1.5;
+            moneyValue *= 0.75;
+            document.getElementById('breadPrice').textContent = `$${breadPrice.toFixed(2)}`;
+            document.getElementById('moneyValue').textContent = `${moneyValue.toFixed(0)}%`;
+        }
+
+        // --- Principle 10 ---
+        let phillipsCurveData = [
+            {x: 10, y: 1}, {x: 8, y: 2}, {x: 6, y: 3}, {x: 5, y: 4}, {x: 4.5, y: 5}, {x: 4, y: 7}, {x: 3.5, y: 10}
+        ];
+        let currentPhillipsPoint = 3;
+
+        function createPhillipsCurveChart() {
+            const ctx = document.getElementById('phillipsCurveChart').getContext('2d');
+            charts.phillips = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Phillips Curve',
+                        data: phillipsCurveData,
+                        borderColor: 'rgba(20, 184, 166, 1)',
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                        fill: false,
+                        tension: 0.4,
+                        showLine: true
+                    }, {
+                        label: 'Current Position',
+                        data: [phillipsCurveData[currentPhillipsPoint]],
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        backgroundColor: 'rgba(239, 68, 68, 1)',
+                        pointRadius: 8,
+                        pointHoverRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: { display: true, text: 'Unemployment Rate (%)' },
+                            reverse: true
+                        },
+                        y: {
+                            title: { display: true, text: 'Inflation Rate (%)' }
+                        }
+                    },
+                     plugins: { title: { display: true, text: 'Short-Run Inflation-Unemployment Trade-off' } }
+                }
+            });
+        }
+        
+        function moveOnPhillipsCurve(direction) {
+            currentPhillipsPoint += direction;
+            if (currentPhillipsPoint < 0) currentPhillipsPoint = 0;
+            if (currentPhillipsPoint >= phillipsCurveData.length) currentPhillipsPoint = phillipsCurveData.length - 1;
+            
+            charts.phillips.data.datasets[1].data = [phillipsCurveData[currentPhillipsPoint]];
+            charts.phillips.update();
+        }
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
