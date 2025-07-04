@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Quiz: Supply & Demand</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:not([disabled]):hover {
+            background-color: #e0f2fe;
+            border-color: #38bdf8;
+        }
+        .correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #166534 !important;
+        }
+        .incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div id="quiz-container" class="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 md:p-8">
+        <div id="quiz-header">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-800 text-center">Supply & Demand Quiz</h1>
+            <div id="progress-container" class="mt-6">
+                <div class="flex justify-between mb-1">
+                    <span class="text-base font-medium text-slate-700">Progress</span>
+                    <span id="progress-text" class="text-sm font-medium text-slate-700">Question 1 of 25</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-sky-500 h-2.5 rounded-full" style="width: 4%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-body" class="mt-8">
+            <p id="question-text" class="text-lg font-medium text-slate-700 mb-6">Question text goes here...</p>
+            <div id="options-container" class="space-y-4">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            <div id="explanation-container" class="mt-6">
+                <!-- Explanation will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <div id="quiz-footer" class="mt-8 text-center">
+            <button id="next-btn" class="w-full md:w-auto bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-12 rounded-lg shadow-md transition-transform transform hover:scale-105" disabled>Next</button>
+        </div>
+
+        <div id="results-container" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Quiz Complete!</h2>
+            <div class="bg-slate-100 p-6 rounded-lg mb-6">
+                <p class="text-lg text-slate-600">Your Score:</p>
+                <p id="score-text" class="text-5xl font-bold text-sky-600 my-2">0 / 25</p>
+            </div>
+            <button id="restart-btn" class="w-full md:w-auto bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-12 rounded-lg shadow-md transition-transform transform hover:scale-105">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            { question: "A market in which there are so many buyers and sellers that each has a negligible impact on the market price is called a(n):", options: ["Monopoly", "Organized market", "Competitive market", "Scarce market"], answer: "Competitive market", explanation: "A competitive market is defined by having numerous buyers and sellers, ensuring no single participant can influence the price." },
+            { question: "According to the law of demand, when the price of a good rises, the quantity demanded:", options: ["Rises", "Falls", "Stays the same", "Becomes ambiguous"], answer: "Falls", explanation: "The law of demand describes the inverse relationship between price and quantity demanded; as price goes up, quantity demanded goes down." },
+            { question: "A shift of the entire demand curve to the right is called:", options: ["An increase in quantity demanded", "A decrease in quantity demanded", "An increase in demand", "A decrease in demand"], answer: "An increase in demand", explanation: "A 'change in demand' refers to a shift of the entire curve, while a 'change in quantity demanded' is a movement along the curve due to a price change." },
+            { question: "If consumer income falls and the demand for bus rides increases, bus rides are considered a(n):", options: ["Normal good", "Complementary good", "Substitute good", "Inferior good"], answer: "Inferior good", explanation: "An inferior good is a type of good for which demand increases when income falls, as consumers switch to more affordable alternatives." },
+            { question: "Hot dogs and hamburgers are substitutes. If the price of hot dogs falls, what happens to the demand for hamburgers?", options: ["The demand for hamburgers increases.", "The demand for hamburgers decreases.", "The quantity demanded of hamburgers decreases.", "The demand for hamburgers stays the same."], answer: "The demand for hamburgers decreases.", explanation: "When the price of a substitute good (hot dogs) falls, consumers buy more of it and less of the other good (hamburgers), causing the demand for hamburgers to decrease." },
+            { question: "Which of the following would cause a movement along the supply curve for ice cream?", options: ["A change in the price of sugar.", "An improvement in ice-cream machine technology.", "A change in the price of ice cream.", "A change in sellers' expectations about future prices."], answer: "A change in the price of ice cream.", explanation: "Only a change in the good's own price causes a movement along the supply curve (a change in quantity supplied). The other options are determinants that shift the entire curve." },
+            { question: "The law of supply states that, other things being equal, when the price of a good falls, the quantity supplied:", options: ["Rises", "Falls", "Stays the same", "Becomes ambiguous"], answer: "Falls", explanation: "The law of supply indicates a direct relationship between price and quantity supplied. A lower price reduces profitability, so sellers supply less." },
+            { question: "An improvement in the technology for producing a good will lead to:", options: ["A shift of the supply curve to the left.", "A shift of the supply curve to the right.", "A movement up along the supply curve.", "A movement down along the supply curve."], answer: "A shift of the supply curve to the right.", explanation: "Technological improvements lower production costs, allowing firms to supply more at every price level. This is represented by a rightward shift of the supply curve." },
+            { question: "The point where the supply and demand curves intersect is called the:", options: ["Surplus point", "Shortage point", "Market equilibrium", "Price floor"], answer: "Market equilibrium", explanation: "Market equilibrium is the specific point where the quantity sellers are willing to supply equals the quantity buyers are willing to purchase." },
+            { question: "If the market price is above the equilibrium price, what situation arises?", options: ["A shortage, putting upward pressure on the price.", "A surplus, putting upward pressure on the price.", "A shortage, putting downward pressure on the price.", "A surplus, putting downward pressure on the price."], answer: "A surplus, putting downward pressure on the price.", explanation: "A price above equilibrium means quantity supplied exceeds quantity demanded, creating a surplus. Sellers will lower prices to sell their excess inventory." },
+            { question: "A hurricane damages the cotton crop in South Carolina. What is the effect on the market for sweatshirts?", options: ["The supply of sweatshirts decreases, leading to a higher price.", "The demand for sweatshirts decreases, leading to a lower price.", "The supply of sweatshirts increases, leading to a lower price.", "The demand for sweatshirts increases, leading to a higher price."], answer: "The supply of sweatshirts decreases, leading to a higher price.", explanation: "Cotton is an input for sweatshirts. Damage to the crop raises the input price, which decreases the supply of sweatshirts (shifts supply left), resulting in a higher equilibrium price." },
+            { question: "Suppose the price of movie tickets (a substitute for film streaming) increases. What happens in the market for film streaming services?", options: ["Demand for streaming shifts left.", "Demand for streaming shifts right.", "Supply of streaming shifts left.", "Supply of streaming shifts right."], answer: "Demand for streaming shifts right.", explanation: "When the price of a substitute (movie tickets) rises, consumers switch to the alternative (streaming), increasing its demand." },
+            { question: "What is the predicted outcome if consumers' incomes increase and the good in question is a normal good?", options: ["Equilibrium price and quantity both fall.", "Equilibrium price and quantity both rise.", "Equilibrium price rises, and quantity falls.", "Equilibrium price falls, and quantity rises."], answer: "Equilibrium price and quantity both rise.", explanation: "For a normal good, higher income leads to an increase in demand (a rightward shift), which causes both the equilibrium price and quantity to rise." },
+            { question: "Consider a market where both supply and demand increase simultaneously. What is the definite effect on the equilibrium?", options: ["Price will rise.", "Price will fall.", "Quantity will rise.", "Quantity will fall."], answer: "Quantity will rise.", explanation: "When both demand and supply increase, both forces push the equilibrium quantity higher. The effect on price is ambiguous because the increase in demand pushes price up, while the increase in supply pushes it down." },
+            { question: "If a war in the Middle East disrupts oil supplies, what is the impact on the market for gasoline and the market for used Cadillacs (a gas-guzzler)?", options: ["Gasoline price rises; demand for used Cadillacs rises.", "Gasoline price falls; demand for used Cadillacs falls.", "Gasoline price rises; demand for used Cadillacs falls.", "Gasoline price falls; demand for used Cadillacs rises."], answer: "Gasoline price rises; demand for used Cadillacs falls.", explanation: "A disruption in oil supply decreases gasoline supply, raising its price. Since gasoline and gas-guzzling cars are complements, the higher gas price decreases the demand for used Cadillacs." },
+            { question: "The \"law of supply and demand\" claims that:", options: ["The price of a good is legally required to balance supply and demand.", "The price of any good adjusts to bring the quantity supplied and quantity demanded into balance.", "In a surplus, prices will rise to meet the equilibrium.", "In a shortage, prices will fall to meet the equilibrium."], answer: "The price of any good adjusts to bring the quantity supplied and quantity demanded into balance.", explanation: "This law describes the natural market tendency for prices to adjust to eliminate shortages or surpluses, thereby reaching equilibrium." },
+            { question: "In a market economy, what is the primary mechanism for rationing scarce resources?", options: ["Government regulation", "Sellers' decisions", "Prices", "A first-come, first-served system"], answer: "Prices", explanation: "Prices serve to ration scarce resources by ensuring that they are allocated to the buyers who are most willing and able to pay for them." },
+            { question: "How is the market demand curve derived from individual demand curves?", options: ["By finding the average quantity demanded at each price.", "By summing the individual demand curves vertically.", "By summing the individual demand curves horizontally.", "By selecting the demand curve of the largest consumer."], answer: "By summing the individual demand curves horizontally.", explanation: "The total market quantity demanded at any price is the sum of the quantities demanded by all individual buyers at that price." },
+            { question: "A government policy that places mandatory health warnings on cigarette packages is an attempt to reduce smoking by:", options: ["Causing a movement up along the demand curve for cigarettes.", "Shifting the demand curve for cigarettes to the left.", "Shifting the supply curve for cigarettes to the left.", "Shifting the demand curve for cigarettes to the right."], answer: "Shifting the demand curve for cigarettes to the left.", explanation: "Such policies aim to change consumer tastes and reduce the desire for cigarettes at every price, which constitutes a leftward shift of the demand curve." },
+            { question: "According to the case study, most studies on the relationship between cigarettes and marijuana find that:", options: ["The two goods are substitutes.", "The two goods are complements.", "The two goods are unrelated.", "Marijuana is an inferior good, while cigarettes are a normal good."], answer: "The two goods are complements.", explanation: "The text indicates that studies find lower cigarette prices are associated with greater marijuana use, which is the definition of complementary goods." },
+            { question: "What is the first step in the three-step method for analyzing how an event affects a market's equilibrium?", options: ["Decide in which direction the curve shifts.", "Use the supply-and-demand diagram to see the change.", "Decide whether the event shifts the supply curve, the demand curve, or both.", "Compare the initial equilibrium with the new one."], answer: "Decide whether the event shifts the supply curve, the demand curve, or both.", explanation: "Before analyzing the effects, one must first determine which side of the market (supply, demand, or both) is directly impacted by the event." },
+            { question: "A stock market crash lowers people's wealth. What is the most likely effect on the market for minivans (a normal good)?", options: ["Demand increases, price rises.", "Supply decreases, price rises.", "Demand decreases, price falls.", "Supply increases, price falls."], answer: "Demand decreases, price falls.", explanation: "A decrease in wealth is like a decrease in income. For a normal good, this causes demand to decrease (shift left), leading to a lower equilibrium price and quantity." },
+            { question: "Scientists reveal that eating oranges decreases the risk of diabetes. At the same time, farmers use a new fertilizer that makes orange trees produce more oranges. What is the effect on the equilibrium price and quantity of oranges?", options: ["Price will rise, quantity will fall.", "Price will fall, quantity is ambiguous.", "Price is ambiguous, quantity will rise.", "Price will rise, quantity is ambiguous."], answer: "Price is ambiguous, quantity will rise.", explanation: "The health news increases demand (pushing P and Q up), while the fertilizer increases supply (pushing P down and Q up). Since both events push quantity up, Q will definitely rise. The effect on P is ambiguous." },
+            { question: "According to the \"In the News\" article, what is a socially beneficial effect of allowing \"price gouging\" during an emergency?", options: ["It primarily benefits the wealthy.", "It discourages overconsumption and makes goods available to more customers.", "It forces the government to implement a formal rationing program.", "It is a way for merchants to be rewarded for doing nothing."], answer: "It discourages overconsumption and makes goods available to more customers.", explanation: "The article argues that higher prices during a disaster discourage hoarding and help ration scarce goods more effectively than a first-come, first-served system." },
+            { question: "Bagels and cream cheese are complements. If the price of flour (an input for bagels) falls, what happens in the market for cream cheese?", options: ["The equilibrium price and quantity of cream cheese will both rise.", "The equilibrium price and quantity of cream cheese will both fall.", "The equilibrium price will rise, and quantity will fall.", "The equilibrium price will fall, and quantity will rise."], answer: "The equilibrium price and quantity of cream cheese will both rise.", explanation: "A lower price for flour increases the supply of bagels, which lowers the price of bagels. Since they are complements, the lower price of bagels increases the demand for cream cheese, leading to a higher price and quantity for cream cheese." }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const explanationContainerEl = document.getElementById('explanation-container');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const quizBody = document.getElementById('quiz-body');
+        const quizFooter = document.getElementById('quiz-footer');
+        const quizHeader = document.getElementById('quiz-header');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            nextBtn.disabled = true;
+            nextBtn.innerHTML = "Next";
+            resultsContainer.classList.add('hidden');
+            quizHeader.classList.remove('hidden');
+            quizBody.classList.remove('hidden');
+            quizFooter.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionTextEl.textContent = currentQuestion.question;
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn', 'w-full', 'p-4', 'text-left', 'border-2', 'border-slate-300', 'rounded-lg', 'text-slate-700', 'font-medium');
+                button.addEventListener('click', selectOption);
+                optionsContainerEl.appendChild(button);
+            });
+
+            updateProgress();
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            while (optionsContainerEl.firstChild) {
+                optionsContainerEl.removeChild(optionsContainerEl.firstChild);
+            }
+            while (explanationContainerEl.firstChild) {
+                explanationContainerEl.removeChild(explanationContainerEl.firstChild);
+            }
+        }
+
+        function selectOption(e) {
+            const selectedBtn = e.target;
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correctAnswer = currentQuestion.answer;
+
+            if (selectedBtn.textContent === correctAnswer) {
+                score++;
+                selectedBtn.classList.add('correct');
+            } else {
+                selectedBtn.classList.add('incorrect');
+            }
+
+            Array.from(optionsContainerEl.children).forEach(button => {
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct');
+                }
+                button.disabled = true;
+            });
+
+            showExplanation(currentQuestion.explanation);
+            nextBtn.disabled = false;
+        }
+
+        function showExplanation(explanation) {
+            const explanationEl = document.createElement('div');
+            explanationEl.classList.add('p-4', 'rounded-lg', 'bg-sky-50', 'border', 'border-sky-200', 'text-sky-800');
+            explanationEl.innerHTML = `<p class="font-bold">Explanation:</p><p>${explanation}</p>`;
+            explanationContainerEl.appendChild(explanationEl);
+        }
+
+        function updateProgress() {
+            progressText.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            const progressPercentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        function showResults() {
+            quizHeader.classList.add('hidden');
+            quizBody.classList.add('hidden');
+            quizFooter.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            scoreText.textContent = `${score} / ${quizData.length}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        restartBtn.addEventListener('click', startQuiz);
+
+        startQuiz();
+    </script>
+</body>
+</html>
