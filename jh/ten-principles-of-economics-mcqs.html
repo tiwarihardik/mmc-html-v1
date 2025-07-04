@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Principles: Interactive Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+        .correct {
+            background-color: #dcfce7 !important; /* green-100 */
+            border-color: #22c55e !important; /* green-500 */
+            color: #166534; /* green-800 */
+        }
+        .incorrect {
+            background-color: #fee2e2 !important; /* red-100 */
+            border-color: #ef4444 !important; /* red-500 */
+            color: #991b1b; /* red-800 */
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 flex items-center justify-center min-h-screen p-4">
+
+    <main class="bg-white p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-2xl">
+        <div id="quiz-container">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-xl sm:text-2xl font-bold text-teal-800">Economics Quiz</h1>
+                <span id="progress-text" class="text-sm font-medium text-stone-500"></span>
+            </div>
+            <div class="w-full bg-stone-200 rounded-full h-2.5 mb-6">
+                <div id="progress-bar" class="bg-teal-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+
+            <div id="question-area">
+                <p id="question-text" class="text-lg font-medium text-stone-900 mb-6 min-h-[72px]"></p>
+                <div id="options-container" class="space-y-3"></div>
+            </div>
+
+            <div id="feedback-area" class="mt-6">
+                <p id="feedback-text" class="text-lg font-bold text-center"></p>
+                <div id="explanation-area" class="hidden mt-2 p-3 bg-stone-100 rounded-lg text-sm text-stone-700"></div>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+                <button id="prev-btn" onclick="prevQuestion()" class="bg-stone-200 text-stone-700 py-2 px-6 rounded-lg hover:bg-stone-300 transition-colors disabled:opacity-50" disabled>Previous</button>
+                <button id="next-btn" onclick="nextQuestion()" class="bg-teal-600 text-white py-2 px-6 rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50" disabled>Next</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="hidden text-center">
+            <h2 class="text-3xl font-bold text-teal-800 mb-4">Quiz Complete!</h2>
+            <p class="text-xl text-stone-700 mb-2">Your Score:</p>
+            <p id="score-text" class="text-5xl font-bold text-stone-900 mb-8"></p>
+            <div id="results-summary" class="text-left space-y-4 max-h-80 overflow-y-auto p-4 border rounded-lg"></div>
+            <button onclick="restartQuiz()" class="mt-8 w-full bg-teal-600 text-white py-3 rounded-lg hover:bg-teal-700 transition-colors">Restart Quiz</button>
+        </div>
+    </main>
+
+    <script>
+        const quizData = [
+            { question: `The core idea that "there ain't no such thing as a free lunch" means:`, options: ["Every choice has a cost.", "Food is never given away for free.", "All decisions are easy to make.", "Economic pies cannot be made larger."], answer: 0, explanation: `The principle "People Face Trade-offs" means that to get something we like, we usually have to give up something else. This implies that every decision has a cost in the form of a forgone alternative.` },
+            { question: `The trade-off between "guns and butter" refers to the societal choice between:`, options: ["Farming and manufacturing.", "National defense and consumer goods.", "Efficiency and equality.", "Work and leisure."], answer: 1, explanation: `The text explicitly uses the "guns and butter" analogy to describe the classic societal trade-off between spending on national defense (guns) and consumer goods (butter) to raise the standard of living.` },
+            { question: `When the government implements policies to redistribute income from the wealthy to the poor, what is the most likely trade-off?`, options: ["A gain in efficiency at the expense of equality.", "A gain in equality at the expense of efficiency.", "A gain in both efficiency and equality.", "A loss in both efficiency and equality."], answer: 1, explanation: `The text states that policies aimed at equalizing economic well-being can reduce the reward for working hard. This reduces efficiency, meaning "when the government tries to cut the economic pie into more equal slices, the pie gets smaller."` },
+            { question: `In economics, the term "efficiency" refers to:`, options: ["How fairly the economic pie is divided.", "The speed at which goods are produced.", "Getting the maximum benefits from scarce resources.", "The amount of government intervention."], answer: 2, explanation: `The definition provided in the text is: "Efficiency means that society is getting the maximum benefits from its scarce resources." It refers to the size of the economic pie.` },
+            { question: `What is the most accurate definition of opportunity cost?`, options: ["The total cash expenditure needed for an item.", "The value of whatever must be given up to obtain an item.", "The hidden costs that are not monetary.", "The cost of producing an item."], answer: 1, explanation: `This is the direct definition of opportunity cost from the text: "The opportunity cost of an item is what you give up to get that item."` },
+            { question: `For most students, the single largest opportunity cost of attending college is:`, options: ["The cost of tuition, fees, and books.", "The cost of room and board.", "The wages given up by not working full-time.", "The loans that must be paid back after graduation."], answer: 2, explanation: `The text highlights that for most students, the earnings they give up to attend school are the "single largest cost of their education."` },
+            { question: `When calculating the opportunity cost of a vacation, which of the following would you NOT include?`, options: ["The wages you could have earned if you worked instead.", "The cost of your plane ticket.", "The cost of food, assuming you would have eaten the same amount at home.", "The cost of a special tour you take on the vacation."], answer: 2, explanation: `Opportunity cost only includes costs that are a direct result of the decision. As the text explains regarding college, room and board are not true costs unless they are more expensive than they would be otherwise, because you need food and shelter regardless.` },
+            { question: `A "marginal change" is best described as:`, options: ["A large, life-altering decision.", "A change that has no effect on the outcome.", "A small, incremental adjustment to an existing plan.", "An inefficient decision."], answer: 2, explanation: `This is the direct definition from the text: "Economists use the term marginal change to describe a small incremental adjustment to an existing plan of action."` },
+            { question: `A rational person will only choose to take an action if:`, options: ["The marginal benefit is less than the marginal cost.", "The marginal benefit is greater than the marginal cost.", "The average benefit is greater than the average cost.", "There are no marginal costs."], answer: 1, explanation: `The principle of marginal thinking states that "A rational decision maker takes an action if and only if the marginal benefit of the action exceeds the marginal cost."` },
+            { question: `An airline is considering selling a standby ticket for $300 right before takeoff. The plane has empty seats, and the average cost per seat is $500. The marginal cost of another passenger is $25. The airline should:`, options: ["Not sell the ticket because the price is below the average cost.", "Sell the ticket because the marginal benefit of $300 is greater than the marginal cost of $25.", "Not sell the ticket because it would be unfair to passengers who paid more.", "Sell the ticket only if the passenger is willing to pay the average cost of $500."], answer: 1, explanation: `The text uses a similar airline example. A rational airline ignores the average cost ($500) and focuses on the marginal cost (tiny) versus the marginal benefit ($300). Since the benefit is greater, selling the ticket is profitable.` },
+            { question: `According to the text, the entire field of economics can be summarized as:`, options: [`"People face trade-offs."`, `"Markets are usually a good way to organize activity."`, `"People respond to incentives."`, `"A country's standard of living depends on its productivity."`], answer: 2, explanation: `The text quotes an economist who suggested the entire field could be summarized as "People respond to incentives. The rest is commentary."` },
+            { question: `The "unintended consequence" of the seat belt law discussed in the text was that:`, options: ["Fewer pedestrians were killed in accidents.", "Drivers began to drive faster and less carefully.", "The number of accidents per driver decreased significantly.", "The direct effect was smaller than policymakers expected."], answer: 1, explanation: `The text explains that seat belts reduce the benefits of slow and careful driving. "People respond to seat belts as they would to an improvement in road conditions—by driving faster and less carefully." This is the unintended consequence.` },
+            { question: `Trade between two countries is most accurately described as:`, options: ["A zero-sum game where one country wins and the other loses.", "A competition that harms the less productive country.", "A mutually beneficial arrangement that allows for greater variety and lower costs.", "A system that only benefits the country with lower wages."], answer: 2, explanation: `The text states that trade is not like a sports contest; instead, "Trade between two countries can make each country better off" by allowing them to specialize and enjoy a greater variety of goods.` },
+            { question: `The primary mechanism through which trade benefits all participating parties is:`, options: ["Competition.", "Government regulation.", "Specialization.", "Limiting imports."], answer: 2, explanation: `The text explains: "Trade allows each person to specialize in the activities she does best... By trading with others, people can buy a greater variety of goods and services at lower cost."` },
+            { question: `Adam Smith's "invisible hand" refers to the ability of:`, options: ["Governments to guide economic activity through regulation.", "Self-interested individuals in a market to lead to desirable societal outcomes.", "Businesses to secretly control prices.", "Central planners to allocate resources effectively."], answer: 1, explanation: `This is the core of Adam Smith's insight. The text says the "invisible hand" guides self-interest "into promoting general economic well-being."` },
+            { question: `What is the primary instrument that the "invisible hand" uses to direct economic activity?`, options: ["Government regulations", "Company policies", "Prices", "Moral sentiment"], answer: 2, explanation: `The text explicitly states: "As you study economics, you will learn that prices are the instrument with which the invisible hand directs economic activity."` },
+            { question: `Which of the following is NOT a reason for a government to intervene in a market?`, options: ["To enforce property rights.", "To correct a market failure caused by an externality.", "To achieve a more equal distribution of income.", "To ensure a specific company makes a profit."], answer: 3, explanation: `Government intervenes to promote efficiency (correcting market failures) or equality, and to enforce property rights. It does not intervene to guarantee profits for a specific private company.` },
+            { question: `A factory's pollution is a classic example of:`, options: ["Market power.", "An externality.", "A property right.", "The invisible hand."], answer: 1, explanation: `The text defines an externality as "the impact of one person's actions on the well-being of a bystander" and uses pollution as the "classic example."` },
+            { question: `A situation where a single person or firm has a substantial influence on market prices is known as:`, options: ["An externality.", "Market power.", "Efficiency.", "Equality."], answer: 1, explanation: `This is the direct definition from the text: "market power... refers to the ability of a single person or firm (or a small group) to unduly influence market prices."` },
+            { question: `The vast differences in living standards between countries are almost entirely explained by differences in:`, options: ["Minimum wage laws.", "The power of labor unions.", "Productivity.", "Foreign competition."], answer: 2, explanation: `The text is very clear on this: "Almost all variation in living standards is attributable to differences in countries’ productivity."` },
+            { question: `Productivity is defined as:`, options: ["The total number of goods and services produced in an economy.", "The quantity of goods and services produced from each unit of labor input.", "The amount of money circulating in the economy.", "The rate of employment in a country."], answer: 1, explanation: `This is the direct definition of productivity provided in the text.` },
+            { question: `In almost all cases, what is the cause of large or persistent inflation?`, options: ["Excessively high wages set by unions.", "Firms using their market power to raise prices.", "Growth in the quantity of money.", "Increased foreign competition."], answer: 2, explanation: `The text states: "In almost all cases of large or persistent inflation, the culprit is growth in the quantity of money."` },
+            { question: `In the short run, an increase in the money supply is likely to lead to:`, options: ["Higher unemployment and lower inflation.", "Lower unemployment and higher inflation.", "Higher unemployment and higher inflation.", "Lower unemployment and lower inflation."], answer: 1, explanation: `This describes the short-run trade-off. Increasing money stimulates demand, which "encourages them to hire more workers (lower unemployment)," but "higher demand may over time cause firms to raise their prices (higher inflation)."` },
+            { question: `The irregular and largely unpredictable fluctuations in economic activity are known as:`, options: ["The business cycle.", "The inflation tax.", "The productivity curve.", "The market failure."], answer: 0, explanation: `This is the direct definition from the text: "the business cycle—the irregular and largely unpredictable fluctuations in economic activity, as measured by the production of goods and services or the number of people employed."` },
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const feedbackTextEl = document.getElementById('feedback-text');
+        const explanationAreaEl = document.getElementById('explanation-area');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressTextEl = document.getElementById('progress-text');
+        const progressBarEl = document.getElementById('progress-bar');
+        const quizContainerEl = document.getElementById('quiz-container');
+        const resultsContainerEl = document.getElementById('results-container');
+        const scoreTextEl = document.getElementById('score-text');
+        const resultsSummaryEl = document.getElementById('results-summary');
+
+        function loadQuestion() {
+            feedbackTextEl.textContent = '';
+            explanationAreaEl.classList.add('hidden');
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionTextEl.textContent = currentQuestion.question;
+            optionsContainerEl.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = "w-full text-left p-4 border-2 border-stone-200 rounded-lg hover:bg-stone-100 hover:border-teal-500 transition-colors option-btn";
+                button.onclick = () => selectAnswer(index);
+                optionsContainerEl.appendChild(button);
+            });
+
+            updateProgress();
+            updateNavigation();
+            if (userAnswers[currentQuestionIndex] !== null) {
+                showFeedback(userAnswers[currentQuestionIndex]);
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            userAnswers[currentQuestionIndex] = selectedIndex;
+            showFeedback(selectedIndex);
+            nextBtn.disabled = false;
+        }
+
+        function showFeedback(selectedIndex) {
+            const correctIndex = quizData[currentQuestionIndex].answer;
+            const explanation = quizData[currentQuestionIndex].explanation;
+            const optionButtons = optionsContainerEl.querySelectorAll('button');
+
+            optionButtons.forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === correctIndex) {
+                feedbackTextEl.textContent = "Correct!";
+                feedbackTextEl.className = "text-lg font-bold text-center text-green-600";
+            } else {
+                feedbackTextEl.textContent = "Incorrect!";
+                feedbackTextEl.className = "text-lg font-bold text-center text-red-600";
+            }
+            
+            explanationAreaEl.textContent = explanation;
+            explanationAreaEl.classList.remove('hidden');
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            if (userAnswers[currentQuestionIndex] === null) {
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.disabled = false;
+            }
+        }
+
+        function updateProgress() {
+            progressTextEl.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            const progressPercentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBarEl.style.width = `${progressPercentage}%`;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainerEl.classList.add('hidden');
+            resultsContainerEl.classList.remove('hidden');
+
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === quizData[index].answer) {
+                    score++;
+                }
+            });
+
+            scoreTextEl.textContent = `${score} / ${quizData.length}`;
+            
+            resultsSummaryEl.innerHTML = '';
+            quizData.forEach((question, index) => {
+                const userAnswerIndex = userAnswers[index];
+                const correctAnswerIndex = question.answer;
+                const isCorrect = userAnswerIndex === correctAnswerIndex;
+                
+                const resultItem = document.createElement('div');
+                resultItem.className = `p-3 rounded-lg ${isCorrect ? 'bg-green-50' : 'bg-red-50'}`;
+                
+                resultItem.innerHTML = `
+                    <p class="font-bold text-stone-800">${index + 1}. ${question.question}</p>
+                    <p class="text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}">Your answer: ${userAnswerIndex !== null ? question.options[userAnswerIndex] : 'Not answered'}</p>
+                    ${!isCorrect ? `<p class="text-sm text-green-800 font-semibold">Correct answer: ${question.options[correctAnswerIndex]}</p>` : ''}
+                `;
+                resultsSummaryEl.appendChild(resultItem);
+            });
+        }
+        
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            resultsContainerEl.classList.add('hidden');
+            quizContainerEl.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
