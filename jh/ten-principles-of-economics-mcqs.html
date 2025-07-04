@@ -30,10 +30,14 @@
     <main class="bg-white p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-2xl">
         <div id="quiz-container">
             <div class="flex justify-between items-center mb-4">
-                <h1 class="text-xl sm:text-2xl font-bold text-teal-800">MCQ Based Qeustions</h1>
-                <h3>Topic: 10 Principles of Economics</h3>
+                <div>
+ <h1 class="text-xl sm:text-2xl font-bold text-teal-800">MCQ Based Qeustions</h1>
+<h3>Topic: 10 Principles of Economics</h3>
                 <h6>by <strong><a href="jagritidodeja.com">Jagriti Dodeja</a></strong> and <strong><a href="hardiktiwari.com">Hardik Tiwari</a></strong> from <strong><a href="https://gregmankiw.blogspot.com/">Sir Greg Mankiw</a></strong>'s book <em>Principles of Microeconomics</em></h6>
             <br>
+</div>
+               
+                
                 <span id="progress-text" class="text-sm font-medium text-stone-500"></span>
             </div>
             <div class="w-full bg-stone-200 rounded-full h-2.5 mb-6">
@@ -49,7 +53,7 @@
                 <p id="feedback-text" class="text-lg font-bold text-center"></p>
                 <div id="explanation-area" class="hidden mt-2 p-3 bg-stone-100 rounded-lg text-sm text-stone-700"></div>
             </div>
-
+            
             <div class="mt-8 flex justify-between">
                 <button id="prev-btn" onclick="prevQuestion()" class="bg-stone-200 text-stone-700 py-2 px-6 rounded-lg hover:bg-stone-300 transition-colors disabled:opacity-50" disabled>Previous</button>
                 <button id="next-btn" onclick="nextQuestion()" class="bg-teal-600 text-white py-2 px-6 rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50" disabled>Next</button>
