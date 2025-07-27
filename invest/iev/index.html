@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Mind Co. & Tensora Labs - Overview for Info Edge Ventures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .notion-h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #E5E7EB; /* gray-200 */
+        }
+        .notion-h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #D1D5DB; /* gray-300 */
+            border-bottom: 1px solid #4B5563; /* gray-600 */
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .notion-h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #9CA3AF; /* gray-400 */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .notion-card {
+            background-color: #1F2937; /* gray-800 */
+            border-radius: 0.75rem;
+            border: 1px solid #374151; /* gray-700 */
+            padding: 1.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .notion-card:hover {
+            border-color: #6366F1; /* indigo-500 */
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .notion-tag {
+            display: inline-block;
+            background-color: #374151; /* gray-700 */
+            color: #E5E7EB; /* gray-200 */
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Flywheel Animation */
+        .flywheel-bg { animation: spin 20s linear infinite; transform-origin: center; }
+        .flywheel-node { cursor: pointer; }
+        .flywheel-node-content { transition: transform 0.3s ease; transform-origin: center; }
+        .flywheel-node:hover .flywheel-node-content { transform: scale(1.1); }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .flow-arrow {
+            stroke-dasharray: 4;
+            animation: dash-flow 10s linear infinite;
+        }
+        @keyframes dash-flow {
+            from { stroke-dashoffset: 100; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Tooltip */
+        #flywheel-tooltip {
+            position: fixed;
+            background-color: #111827;
+            color: #D1D5DB;
+            border: 1px solid #4B5563;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            max-width: 200px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Scroll Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Navigation */
+        .nav-link.active {
+            color: #818CF8; /* indigo-400 */
+            background-color: #374151; /* gray-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300 pt-16">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-gray-900/80 backdrop-blur-sm border-b border-gray-700 z-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex items-center justify-center h-16 overflow-x-auto">
+                <a href="#executive-summary" class="nav-link text-sm font-medium text-gray-400 hover:text-white px-3 py-2 rounded-md transition-colors">Alignment</a>
+                <a href="#all-projects" class="nav-link text-sm font-medium text-gray-400 hover:text-white px-3 py-2 rounded-md transition-colors">Projects</a>
+                <a href="#market-data" class="nav-link text-sm font-medium text-gray-400 hover:text-white px-3 py-2 rounded-md transition-colors">Market</a>
+                <a href="#trends" class="nav-link text-sm font-medium text-gray-400 hover:text-white px-3 py-2 rounded-md transition-colors">Trends</a>
+                <a href="#flywheel" class="nav-link text-sm font-medium text-gray-400 hover:text-white px-3 py-2 rounded-md transition-colors">Flywheel</a>
+                <a href="#invest" class="nav-link text-sm font-medium text-gray-400 hover:text-white px-3 py-2 rounded-md transition-colors">Why Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-8 lg:p-12">
+        <!-- Header -->
+        <header class="mb-12 text-center fade-in-section">
+            
+            <h1 class="notion-h1 mb-2">Mega Mind Co. & Tensora Labs</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">An Investor Overview for Info Edge Ventures: Building India's Foundational AI Stack for Education and Enterprise</p>
+        </header>
+
+        <!-- I. Executive Summary for Info Edge Ventures -->
+        <section id="executive-summary" class="fade-in-section">
+            <h2 class="notion-h2">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20V16"/></svg>
+                I. Alignment with the Info Edge Thesis
+            </h2>
+            <div class="notion-card bg-indigo-900/20 border-indigo-500/50">
+                <p class="text-gray-300 leading-relaxed">
+                    Mega Mind Co. & Tensora Labs represent a unified strategy to build foundational, AI-native platforms for the Indian market, echoing Info Edge's philosophy of backing category-defining digital infrastructure.
+                </p>
+                <ul class="list-disc list-inside space-y-3 mt-4 text-gray-400">
+                    <li>
+                        <b class="text-indigo-300">B2B SaaS & Platform Play:</b> At its core, <b class="text-white">Tensora Labs</b> is an AI infrastructure-as-a-service (IaaS) platform, providing the essential building blocks for developers and enterprises. This directly aligns with Info Edge's focus on B2B SaaS and scalable, high-margin platform businesses.
+                    </li>
+                    <li>
+                        <b class="text-teal-300">Building for Bharat:</b> The <b class="text-white">RE:LEARNING</b> ecosystem is architected for India's unique educational landscape, integrating with national frameworks like NEP and Skill India. This mirrors Info Edge's success in backing ventures that solve uniquely Indian problems at scale.
+                    </li>
+                    <li>
+                        <b class="text-sky-300">Network Effects & Flywheel:</b> Our ecosystem is designed for a powerful flywheel effect where educational initiatives create a supply of skilled developers who then use our infrastructure to build enterprise solutions, creating a self-reinforcing loop of growth and innovation—a core tenet of successful platform strategies.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- II. Organizational Structure -->
+        <section id="structure" class="fade-in-section">
+            <h2 class="notion-h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect x="2" y="18" width="20" height="4" rx="2"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M4 18v-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5"/></svg>
+                II. Organizational Structure
+            </h2>
+            <div class="notion-card overflow-x-auto">
+                <table class="notion-table">
+                    <thead>
+                        <tr>
+                            <th>Division</th>
+                            <th>Role & Strategic Focus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold text-indigo-400">Tensora Labs</td>
+                            <td><b class="text-white">The AI Engine:</b> Foundational IaaS for students, developers and enterprises. This is our core, high-margin technology play.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-teal-400">Mega Mind Co.</td>
+                            <td><b class="text-white">The Ecosystem Architect:</b> Building network effects through education (RE:LEARNING) and targeted vertical SaaS solutions.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- III. All Projects: The Complete Ecosystem -->
+        <section id="all-projects" class="fade-in-section">
+            <h2 class="notion-h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                III. All Projects: The Complete Ecosystem
+            </h2>
+            
+            <!-- Core B2B Infrastructure -->
+            <h3 class="notion-h3 text-indigo-300">Core B2B Infrastructure (Tensora Labs)</h3>
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="notion-card"><h4 class="font-semibold text-white">Tensora Studio</h4><p class="text-sm text-gray-400">No-code UI for fine-tuning and deploying enterprise-grade LLMs.</p><div><span class="notion-tag bg-indigo-500/20 text-indigo-300">Infra</span><span class="notion-tag">B2B</span><span class="notion-tag">Live</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">Quantum Analytics Engine</h4><p class="text-sm text-gray-400">Real-time data graph modeling for predictive enterprise insights.</p><div><span class="notion-tag bg-indigo-500/20 text-indigo-300">Infra</span><span class="notion-tag">B2B</span><span class="notion-tag">Beta</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">Model Hosting</h4><p class="text-sm text-gray-400">API-based deployment with pro-tier inference for SaaS startups.</p><div><span class="notion-tag bg-indigo-500/20 text-indigo-300">Infra</span><span class="notion-tag">API</span><span class="notion-tag">Live</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">VAI-U Compute Core</h4><p class="text-sm text-gray-400">Internal AI engine powering our adaptive learning platforms.</p><div><span class="notion-tag bg-indigo-500/20 text-indigo-300">Internal</span><span class="notion-tag">B2B</span></div></div>
+            </div>
+
+            <!-- Education Ecosystem -->
+            <h3 class="notion-h3 text-teal-300">Education Ecosystem (RE:LEARNING)</h3>
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="notion-card"><h4 class="font-semibold text-white">Achievers Union</h4><p class="text-sm text-gray-400">Non-profit for curating and crediting open learning with real-world projects.</p><div><span class="notion-tag bg-teal-500/20 text-teal-300">Education</span><span class="notion-tag">Non-Profit/Hybrid</span><span class="notion-tag">Live</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">LX.0 Ledger</h4><p class="text-sm text-gray-400">Open credential framework to track, verify, and audit skills for employers.</p><div><span class="notion-tag bg-teal-500/20 text-teal-300">Education</span><span class="notion-tag">B2B</span><span class="notion-tag">Beta</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">VAI-U</h4><p class="text-sm text-gray-400">Virtual Adaptive Intelligence: The AI Operating System for personalized education.</p><div><span class="notion-tag bg-teal-500/20 text-teal-300">Education</span><span class="notion-tag">SaaS</span><span class="notion-tag">Beta</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">24/7 Bot (Edu)</h4><p class="text-sm text-gray-400">AI educator-assist to automate mentoring and content routing in schools.</p><div><span class="notion-tag bg-teal-500/20 text-teal-300">Education</span><span class="notion-tag">SaaS</span></div></div>
+            </div>
+
+            <!-- Vertical & Consumer SaaS -->
+            <h3 class="notion-h3 text-rose-300">Vertical & Consumer SaaS (Powered by Tensora)</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div class="notion-card"><h4 class="font-semibold text-white">Clarify AI</h4><p class="text-sm text-gray-400">Low-cost, private search interface for students and researchers.</p><div><span class="notion-tag bg-rose-500/20 text-rose-300">Consumer</span><span class="notion-tag">Freemium</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">Buildable</h4><p class="text-sm text-gray-400">Prompt-to-app builder for rapid enterprise prototyping.</p><div><span class="notion-tag bg-rose-500/20 text-rose-300">DevTool</span><span class="notion-tag">B2B</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">24/7 Bot (Biz)</h4><p class="text-sm text-gray-400">AI assistant for SMBs on WhatsApp & web with CRM sync.</p><div><span class="notion-tag bg-rose-500/20 text-rose-300">SMB SaaS</span><span class="notion-tag">Live</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">Travel AI Suite</h4><p class="text-sm text-gray-400">Automation toolkit for travel agencies (itinerary, leads, costing).</p><div><span class="notion-tag bg-rose-500/20 text-rose-300">Vertical SaaS</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">SMB Toolkit</h4><p class="text-sm text-gray-400">End-to-end small business stack (chatbot, website, analytics).</p><div><span class="notion-tag bg-rose-500/20 text-rose-300">SMB SaaS</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">Education Bot Suite</h4><p class="text-sm text-gray-400">Automation for schools (attendance, doubt clearing, etc).</p><div><span class="notion-tag bg-rose-500/20 text-rose-300">Vertical SaaS</span></div></div>
+            </div>
+
+             <!-- Future Initiatives -->
+            <h3 class="notion-h3 text-amber-300">Future & Emerging Initiatives</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="notion-card"><h4 class="font-semibold text-white">Meta Tomes</h4><p class="text-sm text-gray-400">AI-curated open publishing platform to redefine journal access.</p><div><span class="notion-tag bg-amber-500/20 text-amber-300">Platform</span><span class="notion-tag">Concept</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">MMJIR</h4><p class="text-sm text-gray-400">Interdisciplinary research journal with on-chain IP tracking.</p><div><span class="notion-tag bg-amber-500/20 text-amber-300">IP Tech</span><span class="notion-tag">Concept</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">TelMesh</h4><p class="text-sm text-gray-400">Decentralized talent grid for internships and co-research.</p><div><span class="notion-tag bg-amber-500/20 text-amber-300">HR Tech</span><span class="notion-tag">Concept</span></div></div>
+                <div class="notion-card"><h4 class="font-semibold text-white">OCX (Open Credit Exchange)</h4><p class="text-sm text-gray-400">Web3 and LX.0 integration for credential interoperability.</p><div><span class="notion-tag bg-amber-500/20 text-amber-300">Web3</span><span class="notion-tag">Concept</span></div></div>
+            </div>
+        </section>
+
+        <!-- IV. Market Opportunity -->
+        <section id="market-data" class="fade-in-section">
+            <h2 class="notion-h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                IV. Market Opportunity: A Trifecta of Growth
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 flex items-center gap-2">Global AI Infrastructure</h3>
+                    <p class="text-sm text-gray-400 mb-4">Projected to grow from <span class="font-bold text-indigo-300">~$88B</span> in 2025 to nearly <span class="font-bold text-indigo-300">$200B</span> by 2030.</p>
+                    <div class="h-48"><canvas id="globalAiChart"></canvas></div>
+                </div>
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 flex items-center gap-2">India EdTech</h3>
+                    <p class="text-sm text-gray-400 mb-4">Expected to nearly quadruple from <span class="font-bold text-teal-300">$7.5B</span> in 2025 to <span class="font-bold text-teal-300">$29B</span> by 2030.</p>
+                    <div class="h-48"><canvas id="indiaEdtechChart"></canvas></div>
+                </div>
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 flex items-center gap-2">India SaaS & SMB</h3>
+                    <p class="text-sm text-gray-400 mb-4">Projected to more than double from <span class="font-bold text-rose-300">$15B</span> in 2024 to <span class="font-bold text-rose-300">$37B</span> by 2028.</p>
+                    <div class="h-48"><canvas id="indiaSaaSChart"></canvas></div>
+                </div>
+                 <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 flex items-center gap-2">India AI Landscape</h3>
+                    <p class="text-sm text-gray-400 mb-4">Set to triple from <span class="font-bold text-sky-300">$5.7B</span> in 2024 to <span class="font-bold text-sky-300">$17B</span> by 2027.</p>
+                    <div class="h-48"><canvas id="indiaAiChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- V. Recent Trends & Strategic Alignment -->
+        <section id="trends" class="fade-in-section">
+            <h2 class="notion-h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                V. Recent Trends & Strategic Alignment
+            </h2>
+            <div class="space-y-6">
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 text-white">Trend: The Rise of Agentic & Multimodal AI</h3>
+                    <p class="text-gray-400 mb-4">The market is rapidly shifting from simple AI tools to sophisticated, multi-step AI agents that can reason, plan, and interact using text, images, and voice. This is the next frontier of enterprise automation.</p>
+                    <div class="p-4 rounded-lg bg-gray-900/50 border border-gray-700">
+                        <p class="font-semibold text-indigo-300">Our Alignment:</p>
+                        <p class="text-gray-300">We are built for this shift. <b class="text-white">Tensora Labs</b> provides the core infrastructure for building these agents, while tools like <b class="text-white">Buildable</b> and the <b class="text-white">24/7 Bot</b> series are direct applications of agentic AI for B2B and SMB use cases.</p>
+                    </div>
+                </div>
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 text-white">Announcement: Google Localizes Gemini Processing in India (July 2025)</h3>
+                    <p class="text-gray-400 mb-4">Google's move to process Gemini 2.5 Flash data within India is a game-changer for data residency and low-latency applications, especially in regulated sectors like finance and healthcare.</p>
+                    <div class="p-4 rounded-lg bg-gray-900/50 border border-gray-700">
+                        <p class="font-semibold text-teal-300">Our Alignment:</p>
+                        <p class="text-gray-300">Our entire stack is built to be cloud-agnostic and leverage the best local infrastructure. <b class="text-white">Tensora's Model Hosting</b> is perfectly positioned to offer services that run on this newly localized infrastructure, giving our clients a critical advantage in performance and compliance.</p>
+                    </div>
+                </div>
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0 text-white">Announcement: IndiaAI Mission & "SOAR" Initiative for Schools (July 2025)</h3>
+                    <p class="text-gray-400 mb-4">The Indian Government's significant investment in AI (₹2000 Cr for the AI mission, ₹500 Cr for AI in Education) and the launch of the SOAR initiative to teach AI skills in schools validates our core thesis.</p>
+                    <div class="p-4 rounded-lg bg-gray-900/50 border border-gray-700">
+                        <p class="font-semibold text-rose-300">Our Alignment:</p>
+                        <p class="text-gray-300">This is a direct endorsement of our model. The <b class="text-white">RE:LEARNING ecosystem</b>, with <b class="text-white">VAI-U</b> and <b class="text-white">LX.0 Ledger</b>, provides the exact tools needed to implement the SOAR initiative at scale. We are not just aligned; we are the execution engine for this national priority.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- VI. Strategic Vision Flywheel -->
+        <section id="flywheel" class="fade-in-section">
+            <h2 class="notion-h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m7.8 16.2-2.9 2.9"/><path d="M6 12H2"/><path d="m7.8 7.8-2.9-2.9"/><circle cx="12" cy="12" r="4"/></svg>
+                VI. The Platform Flywheel: A Virtuous Cycle
+            </h2>
+            <div class="notion-card text-center overflow-hidden relative">
+                <div class="relative w-full max-w-lg mx-auto aspect-square">
+                    <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#6366F1" />
+                            </marker>
+                        </defs>
+                        <!-- Background rotating arcs -->
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="#374151" stroke-width="1" stroke-dasharray="2 4" class="flywheel-bg"/>
+                        
+                        <!-- Flow Arrows -->
+                        <path d="M 100,48 A 52 52 0 0 1 145,80" fill="none" stroke="#4B5563" stroke-width="1.5" class="flow-arrow" marker-end="url(#arrowhead)"/>
+                        <path d="M 155,90 A 52 52 0 0 1 130,145" fill="none" stroke="#4B5563" stroke-width="1.5" class="flow-arrow" style="animation-delay: -2s;" marker-end="url(#arrowhead)"/>
+                        <path d="M 110,155 A 52 52 0 0 1 55,130" fill="none" stroke="#4B5563" stroke-width="1.5" class="flow-arrow" style="animation-delay: -4s;" marker-end="url(#arrowhead)"/>
+                        <path d="M 50,115 A 52 52 0 0 1 70,55" fill="none" stroke="#4B5563" stroke-width="1.5" class="flow-arrow" style="animation-delay: -6s;" marker-end="url(#arrowhead)"/>
+                        <path d="M 85,45 A 52 52 0 0 1 100,48" fill="none" stroke="#4B5563" stroke-width="1.5" class="flow-arrow" style="animation-delay: -8s;" marker-end="url(#arrowhead)"/>
+
+                        <!-- Center Hub -->
+                        <g class="flywheel-node" data-tooltip="The core AI infrastructure from Tensora Labs powers the entire ecosystem.">
+                            <circle cx="100" cy="100" r="30" fill="transparent" />
+                            <g class="flywheel-node-content" style="transform-origin: 100px 100px;">
+                                <circle cx="100" cy="100" r="25" fill="#1F2937" stroke="#6366F1" stroke-width="1"/>
+                                <text x="100" y="104" font-size="10" fill="#E5E7EB" text-anchor="middle" font-weight="bold">AI Core</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Nodes -->
+                        <g class="flywheel-node" transform="translate(100, 30)" data-tooltip="RE:LEARNING creates a supply of AI-skilled talent, seeding the ecosystem.">
+                            <circle cx="0" cy="0" r="22" fill="transparent" />
+                            <g class="flywheel-node-content">
+                                <circle cx="0" cy="0" r="18" fill="#111827" stroke="#14B8A6" stroke-width="1.5"/>
+                                <text x="0" y="1" font-size="6" fill="#A7F3D0" text-anchor="middle" dominant-baseline="middle">Acquire & Train</text>
+                                <text x="0" y="7" font-size="6" fill="#A7F3D0" text-anchor="middle" dominant-baseline="middle">Talent</text>
+                            </g>
+                        </g>
+                         <g class="flywheel-node" transform="translate(160, 85)" data-tooltip="Talent builds on Tensora's IaaS, creating a developer ecosystem. Similar to how Shiprocket empowers D2C brands.">
+                            <circle cx="0" cy="0" r="22" fill="transparent" />
+                            <g class="flywheel-node-content">
+                                <circle cx="0" cy="0" r="18" fill="#111827" stroke="#818CF8" stroke-width="1.5"/>
+                                <text x="0" y="1" font-size="6" fill="#C7D2FE" text-anchor="middle" dominant-baseline="middle">Enable Devs</text>
+                                <text x="0" y="7" font-size="6" fill="#C7D2FE" text-anchor="middle" dominant-baseline="middle">on Tensora</text>
+                            </g>
+                        </g>
+                         <g class="flywheel-node" transform="translate(115, 160)" data-tooltip="Developers launch vertical SaaS & B2B tools, expanding the platform's reach.">
+                            <circle cx="0" cy="0" r="22" fill="transparent" />
+                            <g class="flywheel-node-content">
+                                <circle cx="0" cy="0" r="18" fill="#111827" stroke="#38BDF8" stroke-width="1.5"/>
+                                <text x="0" y="1" font-size="6" fill="#A5F3FC" text-anchor="middle" dominant-baseline="middle">Launch</text>
+                                <text x="0" y="7" font-size="6" fill="#A5F3FC" text-anchor="middle" dominant-baseline="middle">B2B Solutions</text>
+                            </g>
+                        </g>
+                         <g class="flywheel-node" transform="translate(40, 120)" data-tooltip="Enterprises adopt these solutions, driving revenue and platform validation.">
+                            <circle cx="0" cy="0" r="22" fill="transparent" />
+                            <g class="flywheel-node-content">
+                                <circle cx="0" cy="0" r="18" fill="#111827" stroke="#F472B6" stroke-width="1.5"/>
+                                <text x="0" y="1" font-size="6" fill="#FBCFE8" text-anchor="middle" dominant-baseline="middle">Acquire</text>
+                                <text x="0" y="7" font-size="6" fill="#FBCFE8" text-anchor="middle" dominant-baseline="middle">Enterprises</text>
+                            </g>
+                        </g>
+                         <g class="flywheel-node" transform="translate(60, 45)" data-tooltip="Usage data and revenue are reinvested to enhance the core AI and attract more talent.">
+                            <circle cx="0" cy="0" r="22" fill="transparent" />
+                            <g class="flywheel-node-content">
+                                <circle cx="0" cy="0" r="18" fill="#111827" stroke="#FBBF24" stroke-width="1.5"/>
+                                <text x="0" y="1" font-size="6" fill="#FDE68A" text-anchor="middle" dominant-baseline="middle">Reinvest &</text>
+                                <text x="0" y="7" font-size="6" fill="#FDE68A" text-anchor="middle" dominant-baseline="middle">Improve</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <p class="mt-6 text-gray-400 max-w-md mx-auto">This integrated model creates a defensible moat through deep network effects, a classic Info Edge investment pattern.</p>
+            </div>
+            <div id="flywheel-tooltip"></div>
+        </section>
+
+        <!-- VII. Why Invest Now? -->
+        <section id="invest" class="fade-in-section">
+            <h2 class="notion-h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                VII. Why Info Edge Ventures is the Ideal Partner
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0">🤝 Strategic Alignment</h3>
+                    <p class="text-gray-400">Our B2B-first, platform-centric approach is a direct fit with Info Edge's thesis. We are building the picks and shovels for India's AI gold rush.</p>
+                </div>
+                <div class="notion-card">
+                    <h3 class="notion-h3 mt-0">🚀 Unfair Advantage</h3>
+                    <p class="text-gray-400">The RE:LEARNING ecosystem provides a unique, low-cost acquisition channel for developers and early adopters, creating a defensible moat.</p>
+                </div>
+                <div class="notion-card lg:col-span-1 md:col-span-2">
+                    <h3 class="notion-h3 mt-0">💰 Capital Efficiency</h3>
+                    <p class="text-gray-400">Our lean structure and focus on open-source tooling allows for rapid, capital-efficient scaling. We are primed for a seed round to accelerate product development and GTM.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIII. Sample Use of Funds -->
+    
+
+        <!-- Final Summary -->
+        <footer class="mt-16 pt-8 border-t border-gray-800 fade-in-section">
+            <blockquote class="notion-blockquote text-lg text-center border-l-0 border-t-2 border-indigo-500 pt-6">
+                <p class="text-gray-300 text-xl">"We are not just building products; we are building the foundational platform for India's next decade of innovation. We believe this vision is deeply aligned with Info Edge's legacy of creating market-defining companies."</p>
+                <cite class="block text-right mt-4 text-gray-500 not-italic">— Hardik Tiwari, Founder & Ecosystem Architect</cite>
+            </blockquote>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Chart.js configuration
+            const createChartConfig = (gradientColor1, gradientColor2, borderColor) => {
+                const ctx = document.createElement('canvas').getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+                gradient.addColorStop(0, gradientColor1);
+                gradient.addColorStop(1, gradientColor2);
+
+                return {
+                    type: 'line',
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                enabled: false, // Disable default tooltip
+                                external: (context) => { // Custom tooltip
+                                    let tooltipEl = document.getElementById('chartjs-tooltip');
+                                    if (!tooltipEl) {
+                                        tooltipEl = document.createElement('div');
+                                        tooltipEl.id = 'chartjs-tooltip';
+                                        tooltipEl.style.background = '#1F2937';
+                                        tooltipEl.style.borderRadius = '0.5rem';
+                                        tooltipEl.style.color = 'white';
+                                        tooltipEl.style.opacity = 1;
+                                        tooltipEl.style.pointerEvents = 'none';
+                                        tooltipEl.style.position = 'absolute';
+                                        tooltipEl.style.transform = 'translate(-50%, 0)';
+                                        tooltipEl.style.transition = 'all .1s ease';
+                                        tooltipEl.style.border = '1px solid #374151';
+                                        tooltipEl.innerHTML = '<table></table>';
+                                        document.body.appendChild(tooltipEl);
+                                    }
+                                    const tooltipModel = context.tooltip;
+                                    if (tooltipModel.opacity === 0) {
+                                        tooltipEl.style.opacity = 0;
+                                        return;
+                                    }
+                                    if (tooltipModel.body) {
+                                        const titleLines = tooltipModel.title || [];
+                                        const bodyLines = tooltipModel.body.map(b => b.lines);
+                                        let innerHtml = '<thead>';
+                                        titleLines.forEach(function(title) {
+                                            innerHtml += '<tr><th>' + title + '</th></tr>';
+                                        });
+                                        innerHtml += '</thead><tbody>';
+                                        bodyLines.forEach(function(body, i) {
+                                            const parts = body[0].split(':');
+                                            const val = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(parseFloat(parts[1]) * 1e9);
+                                            innerHtml += '<tr><td>Market Size: ' + val + '</td></tr>';
+                                        });
+                                        innerHtml += '</tbody>';
+                                        let tableRoot = tooltipEl.querySelector('table');
+                                        tableRoot.innerHTML = innerHtml;
+                                    }
+                                    const position = context.chart.canvas.getBoundingClientRect();
+                                    tooltipEl.style.opacity = 1;
+                                    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                                    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                                    tooltipEl.style.font = '12px Inter';
+                                    tooltipEl.style.padding = '8px';
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { beginAtZero: false, grid: { color: '#374151' }, ticks: { color: '#9CA3AF', callback: (value) => '$' + value + 'B' } },
+                            x: { grid: { display: false }, ticks: { color: '#9CA3AF' }}
+                        },
+                        elements: {
+                            point: { radius: 0, hoverRadius: 5, backgroundColor: 'white', borderColor: borderColor, borderWidth: 2 },
+                            line: { tension: 0.4, borderColor: borderColor, borderWidth: 2, fill: 'start', backgroundColor: gradient }
+                        }
+                    }
+                };
+            };
+
+            const generateData = (startYear, endYear, startValue, endValue) => {
+                const years = endYear - startYear;
+                const cagr = Math.pow(endValue / startValue, 1 / years) - 1;
+                const labels = [];
+                const data = [];
+                for (let i = 0; i <= years; i++) {
+                    labels.push(startYear + i);
+                    data.push(startValue * Math.pow(1 + cagr, i));
+                }
+                return { labels, data };
+            };
+
+            const globalAiData = generateData(2025, 2030, 87.6, 197.6);
+            const globalAiConfig = createChartConfig('rgba(129, 140, 248, 0.4)', 'rgba(129, 140, 248, 0.01)', '#818CF8');
+            globalAiConfig.data = { labels: globalAiData.labels, datasets: [{ label: 'Market Size:', data: globalAiData.data }] };
+            new Chart(document.getElementById('globalAiChart'), globalAiConfig);
+
+            const indiaEdtechData = generateData(2025, 2030, 7.5, 29);
+            const indiaEdtechConfig = createChartConfig('rgba(45, 212, 191, 0.4)', 'rgba(45, 212, 191, 0.01)', '#2DD4BF');
+            indiaEdtechConfig.data = { labels: indiaEdtechData.labels, datasets: [{ label: 'Market Size:', data: indiaEdtechData.data }] };
+            new Chart(document.getElementById('indiaEdtechChart'), indiaEdtechConfig);
+
+            const indiaAiData = generateData(2024, 2027, 5.7, 17);
+            const indiaAiConfig = createChartConfig('rgba(56, 189, 248, 0.4)', 'rgba(56, 189, 248, 0.01)', '#38BDF8');
+            indiaAiConfig.data = { labels: indiaAiData.labels, datasets: [{ label: 'Market Size:', data: indiaAiData.data }] };
+            new Chart(document.getElementById('indiaAiChart'), indiaAiConfig);
+
+            const indiaSaaSData = generateData(2024, 2028, 15, 37);
+            const indiaSaaSConfig = createChartConfig('rgba(251, 113, 133, 0.4)', 'rgba(251, 113, 133, 0.01)', '#FB7185');
+            indiaSaaSConfig.data = { labels: indiaSaaSData.labels, datasets: [{ label: 'Market Size:', data: indiaSaaSData.data }] };
+            new Chart(document.getElementById('indiaSaaSChart'), indiaSaaSConfig);
+
+            const tooltip = document.getElementById('flywheel-tooltip');
+            const nodes = document.querySelectorAll('.flywheel-node');
+            nodes.forEach(node => {
+                node.addEventListener('mouseover', (e) => {
+                    tooltip.textContent = node.dataset.tooltip;
+                    tooltip.style.opacity = '1';
+                    tooltip.style.visibility = 'visible';
+                });
+                node.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = `${e.clientX + 15}px`;
+                    tooltip.style.top = `${e.clientY + 15}px`;
+                });
+                node.addEventListener('mouseout', () => {
+                    tooltip.style.opacity = '0';
+                    tooltip.style.visibility = 'hidden';
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Active Nav Link Highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const activateNavLink = () => {
+                let index = sections.length;
+
+                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+
+                navLinks.forEach((link) => link.classList.remove('active'));
+                if(navLinks[index]) {
+                   navLinks[index].classList.add('active');
+                }
+            };
+
+            activateNavLink();
+            window.addEventListener('scroll', activateNavLink);
+        });
+    </script>
+</body>
+</html>
