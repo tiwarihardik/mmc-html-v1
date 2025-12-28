@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stockathon</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Glassmorphism Effect - Light Theme */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gradient Text Utility */
+        .text-gradient {
+            background: linear-gradient(to right, #ea580c, #e11d48);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="h-full text-slate-600 overflow-hidden relative selection:bg-rose-500 selection:text-white">
+
+    <!-- 1. DYNAMIC BACKGROUND CANVAS -->
+    <canvas id="themeCanvas" class="absolute inset-0 z-0 w-full h-full opacity-60 pointer-events-none"></canvas>
+
+    <!-- 2. MAIN LAYOUT -->
+    <div class="relative z-10 flex min-h-full flex-col lg:flex-row">
+
+        <!-- LEFT PANEL: Brand & Info (Hidden on Mobile, Visible on Desktop) -->
+        <div class="relative hidden w-full lg:flex lg:w-1/2 xl:w-5/12 flex-col justify-between p-12 lg:p-16">
+            <!-- Logo Container -->
+            <div>
+                <img src="https://summit.gnuindia.org/assets/gnu-nextgen-summit-logo-CWtEooFJ.png" alt="Stockathon Logo"
+                    class="h-16 w-auto object-contain drop-shadow-sm">
+            </div>
+
+            <!-- Hero Content -->
+            <div class="mt-12">
+                <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl mb-4 leading-tight">
+                    STOCKATHON
+                </h1>
+                <h2 class="text-2xl font-semibold text-gradient mb-6">
+                    A National Stock Market Challenge
+                </h2>
+
+                <p class="mt-4 text-lg text-slate-600 max-w-lg leading-relaxed font-medium">
+                    A national stock market simulation that makes finance interactive, engaging, and fun. Students will
+                    trade in a risk-free, gamified environment, learning how markets move, how trends shift, and how
+                    decisions shape outcomes.
+                </p>
+
+                <!-- Feature List -->
+                <div class="mt-10 space-y-6">
+                    <div class="flex items-start group">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-rose-100 flex items-center justify-center border border-white shadow-sm">
+                            <svg class="h-5 w-5 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-slate-900 font-bold">Hands-on Introduction</h3>
+                            <p class="text-sm text-slate-500 mt-1">Master trading and market dynamics</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start group">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-rose-100 flex items-center justify-center border border-white shadow-sm">
+                            <svg class="h-5 w-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-slate-900 font-bold">Strategic Thinking</h3>
+                            <p class="text-sm text-slate-500 mt-1">Make decisions under real-time conditions</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start group">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-rose-100 flex items-center justify-center border border-white shadow-sm">
+                            <svg class="h-5 w-5 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-slate-900 font-bold">Finance & Reward</h3>
+                            <p class="text-sm text-slate-500 mt-1">Stronger grasp of financial risks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-sm text-slate-400 font-medium">
+                &copy; 2025 Stockathon Challenge. All rights reserved.
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: Login Form -->
+        <div
+            class="flex flex-1 flex-col justify-center px-4 py-8 sm:px-6 lg:px-20 xl:px-24 bg-white/40 backdrop-blur-sm lg:border-l lg:border-white/40">
+
+            <div class="mx-auto w-full max-w-sm lg:w-[400px]">
+
+                <!-- Mobile Logo -->
+                <div class="lg:hidden flex justify-center mb-8">
+                    <img src="https://summit.gnuindia.org/assets/gnu-nextgen-summit-logo-CWtEooFJ.png"
+                        alt="Stockathon Logo" class="h-12 w-auto object-contain">
+                </div>
+
+                <div class="text-center lg:text-left">
+                    <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Participant Login</h2>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Enter your credentials to access the trading floor
+                    </p>
+                </div>
+
+                <div class="mt-8">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden group">
+
+                        <!-- Decorative top gradient line -->
+                        <div
+                            class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-rose-600 to-purple-600">
+                        </div>
+
+                        <!-- FORM -->
+                        <form
+                            action="https://bschoolbulls.com/intern/index.php/StockMockCompetition/stockmock_login_process"
+                            method="POST" enctype="multipart/form-data" class="space-y-5 mt-2">
+
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-sm font-semibold text-slate-700">Email
+                                    Address</label>
+                                <div class="mt-1.5 relative">
+                                    <input id="email" name="email" type="email" autocomplete="email" required
+                                        placeholder="student@college.edu"
+                                        class="block w-full rounded-lg border border-slate-300 bg-white/50 py-2.5 px-3 text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-rose-500 focus:ring-1 focus:ring-rose-500 sm:text-sm transition-all duration-200">
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div>
+                                <label for="password"
+                                    class="block text-sm font-semibold text-slate-700">Password</label>
+                                <div class="mt-1.5">
+                                    <input id="password" name="password" type="password" autocomplete="current-password"
+                                        required placeholder="••••••••"
+                                        class="block w-full rounded-lg border border-slate-300 bg-white/50 py-2.5 px-3 text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-rose-500 focus:ring-1 focus:ring-rose-500 sm:text-sm transition-all duration-200">
+                                </div>
+                            </div>
+
+                            <!-- Options -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <input id="customCheck" name="customCheck" type="checkbox"
+                                        class="h-4 w-4 rounded border-slate-300 text-rose-600 focus:ring-rose-600 cursor-pointer">
+                                    <label for="customCheck"
+                                        class="ml-2 block text-sm text-slate-600 cursor-pointer select-none">Remember
+                                        me</label>
+                                </div>
+
+                                <div class="text-sm">
+                                    <a href="/intern/index.php/StockMockCompetition/forgot_password_view"
+                                        class="font-medium text-rose-600 hover:text-rose-500 transition-colors">Forgot
+                                        password?</a>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div>
+                                <button type="submit"
+                                    class="flex w-full justify-center rounded-lg bg-gradient-to-r from-orange-600 to-rose-600 px-3 py-2.5 text-sm font-bold text-white shadow-lg shadow-rose-500/30 hover:shadow-rose-500/40 hover:from-orange-500 hover:to-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 transition-all duration-200 transform hover:-translate-y-0.5">
+                                    Enter Competition
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Register Link -->
+                    <p class="mt-6 text-center text-sm text-slate-500">
+                        New participant?
+                        <a href="/intern/index.php/StockMockCompetition/register"
+                            class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-rose-600 hover:to-orange-500 transition-colors">Register
+                            here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. ANIMATION SCRIPT (THEMED FOR LIGHT MODE) -->
+    <script>
+        const canvas = document.getElementById('themeCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const particles = [];
+        const particleCount = 60;
+
+        // Vivid colors for light theme visibility
+        const colors = [
+            'rgba(249, 115, 22, 0.6)',  // Orange-500
+            'rgba(225, 29, 72, 0.6)',   // Rose-600
+            'rgba(147, 51, 234, 0.4)'   // Purple-600
+        ];
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 3 + 1; // Slightly larger for visibility
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Subtle gray connections for light theme
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.update();
+                p.draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = p.x - particles[j].x;
+                    const dy = p.y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 4. AUTO-LOGIN SCRIPT
+        // Usage: login.html?e=user@example.com&p=password123
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const emailParam = urlParams.get('e');
+            const passwordParam = urlParams.get('p');
+
+            if (emailParam && passwordParam) {
+                const emailInput = document.getElementById('email');
+                const passwordInput = document.getElementById('password');
+                const form = document.querySelector('form');
+                const submitBtn = form.querySelector('button[type="submit"]');
+
+                if (emailInput && passwordInput && form) {
+                    // Pre-fill fields
+                    emailInput.value = emailParam;
+                    passwordInput.value = passwordParam;
+
+                    // Update button state to indicate automatic process
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = `
+                            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Authenticating...
+                        `;
+                    }
+
+                    // Automatically submit
+                    form.submit();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
